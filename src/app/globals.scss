@@ -1,0 +1,17 @@
+@use '@/sass/index' as *;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: $content-color;
+  color: #fff;
+  font-size: 0.9em;
+}
