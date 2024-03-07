@@ -6,22 +6,26 @@ import productIcon from '@/assets/icons/product_icon.svg'
 export const NAVIGATION_ITEMS = [
   {
     title: 'Panel de control',
-    href: 'dashboard',
+    href: '/dashboard',
     icon: dashboardIcon,
+    segment: 'dashboard',
   },
   {
     title: 'Estadísticas de ventas',
-    href: 'statistics-sales',
+    href: '/statistics-sales',
     icon: chartIcon,
+    segment: 'statistics-sales',
   },
   {
     title: 'Mis productos',
-    href: 'products',
+    href: '/products',
     icon: productIcon,
+    segment: 'products',
   },
   {
     title: 'Crear producto',
-    href: 'create-product',
+    href: '/create-product',
     icon: plus_circleIcon,
+    segment: 'create-product',
   },
 ]
