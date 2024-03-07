@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Proyecto de Tesis: Integración de WhatsApp API con ChatGPT e Inteligencia Artificial
 
-## Getting Started
+Este proyecto, parte integral de mi tesis, busca explorar y demostrar la integración de la API de WhatsApp con tecnologías avanzadas como ChatGPT para proporcionar un sistema completo de gestión de ventas, catálogo digital y análisis estadísticos.
 
-First, run the development server:
+## Objetivos
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Integración de WhatsApp API:** Implementar la funcionalidad de envío y recepción de mensajes a través de la API oficial de WhatsApp, permitiendo la interacción automatizada con los clientes.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Inteligencia Artificial con ChatGPT:** Utilizar modelos de lenguaje como ChatGPT para mejorar la interacción con los usuarios, brindando respuestas más contextuales y conversaciones más naturales.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Administración de Ventas:** Desarrollar un sistema de gestión de ventas que permita a los usuarios realizar transacciones directamente a través de la plataforma de WhatsApp.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. **Catálogo Digital:** Implementar un catálogo digital interactivo dentro de la conversación de WhatsApp, permitiendo a los usuarios explorar productos y realizar compras de manera eficiente.
 
-## Learn More
+5. **Estadísticas y Análisis:** Generar informes y estadísticas a partir de las interacciones, proporcionando a los usuarios una visión detallada del rendimiento del sistema y patrones de comportamiento de los clientes.
 
-To learn more about Next.js, take a look at the following resources:
+## Tecnologías Utilizadas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **React.js y TypeScript:** Plataforma y lenguaje de desarrollo principal.
+- **WhatsApp API:** Para la comunicación a través de la plataforma de WhatsApp.
+- **ChatGPT:** Para la mejora de la inteligencia artificial en las conversaciones.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Configuración y Uso
 
-## Deploy on Vercel
+1. **Configuración:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   - Asegúrate de tener Node.js instalados.
+   - Realiza otras configuraciones específicas según tus necesidades en archivos de configuración adicionales.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. **Instalación:**
+   ```bash
+   git clone https://github.com/francisco-JGC/SincIQ_TESIS_CLIENT.git
+   npm install
+   ```
