@@ -1,0 +1,65 @@
+@use '@/sass/index' as *;
+
+$navigation-width: 280px;
+$gap: 1em;
+$padding: 1.8em;
+
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+
+  &__navigation {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: $background-color;
+    height: 100lvh;
+    width: $navigation-width;
+    padding: $padding;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    h2 {
+      margin-bottom: 2em;
+      font-size: 1.5em;
+      font-weight: 600;
+    }
+
+    &__footer {
+      display: flex;
+      align-items: flex-end;
+
+      justify-content: center;
+      height: 100%;
+
+      span {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 0.5em;
+
+        img {
+          width: 1.2em;
+          height: 1.2em;
+          margin-right: 0.5em;
+        }
+
+        a {
+          color: $primary-color;
+        }
+
+        small {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  &__container {
+    padding: $padding;
+    width: calc(100% - #{$navigation-width} - #{$gap});
+    align-self: flex-end;
+  }
+}
