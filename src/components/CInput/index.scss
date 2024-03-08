@@ -1,0 +1,65 @@
+@use '@/sass/index' as *;
+
+.c-input {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em 0;
+  position: relative;
+  font-size: 0.9em;
+
+  label {
+    margin-bottom: 0.5em;
+    color: #222;
+    font-weight: 600;
+    position: relative;
+  }
+  .required {
+    &::after {
+      content: '*';
+      color: tomato;
+      margin-left: 0.2em;
+    }
+  }
+
+  input {
+    padding: 0.8em;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1em;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    background-color: $background-color;
+    border: 1px solid transparent;
+
+    &:focus {
+      border: 1px solid $primary-color;
+    }
+
+    // &:valid {
+    //   background-color: #fcfcff;
+    //   border: 1px solid#eee;
+    // }
+
+    // &:disabled {
+    //   background-color: #eee;
+    //   cursor: not-allowed;
+    // }
+  }
+
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      position: absolute;
+      left: 1.3em;
+      cursor: pointer;
+      width: 1.2em;
+    }
+
+    &:has(.icon) input {
+      padding-left: 3.5em;
+    }
+  }
+}
