@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import './index.scss'
 import { NAVIGATION_ITEMS } from './items'
