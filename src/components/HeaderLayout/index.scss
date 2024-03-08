@@ -1,0 +1,88 @@
+@use '@/sass/index' as *;
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .search {
+    width: 40%;
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 60%;
+    gap: 2em;
+
+    &__notifications,
+    &__chat {
+      position: relative;
+      cursor: pointer;
+
+      img {
+        width: 1.4em;
+        height: 1.4em;
+      }
+
+      &[data-active='true']::before {
+        content: attr(data-count);
+        position: absolute;
+        background-color: $primary-color;
+        top: -0.5em;
+        right: -0.5em;
+        width: 1.4em;
+        height: 1.4em;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.8em;
+        z-index: 1;
+
+        animation: pulse 1s infinite;
+      }
+    }
+
+    &__info {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      cursor: pointer;
+
+      img {
+        width: 3.5em;
+        height: 3.5em;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      p {
+        display: flex;
+        flex-direction: column;
+
+        span {
+          font-weight: bold;
+        }
+
+        small {
+          color: #a9a9a9;
+        }
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-color: $primary-color;
+  }
+  50% {
+    background-color: rgb($primary-color, 0.7);
+  }
+  100% {
+    background-color: $primary-color;
+  }
+}
