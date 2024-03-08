@@ -5,6 +5,7 @@ import { Navigation } from '@/components/Navigation'
 import interrogationCircle from '@/assets/icons/interrogation_circle.svg'
 import Link from 'next/link'
 import Image from 'next/image'
+import { HeaderLayout } from '@/components/HeaderLayout'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -33,7 +34,7 @@ export default function RootLayout({
             <Navigation />
 
             <div className="dashboard-layout__navigation__footer">
-              <span>
+              <div>
                 <Image
                   src={interrogationCircle}
                   typeof="svg"
@@ -48,11 +49,13 @@ export default function RootLayout({
                   © {new Date().getFullYear()} SincIQ (CHIDO DEV) - Todos los
                   derechos reservados.
                 </small>
-              </span>
+              </div>
             </div>
           </nav>
           <div className="dashboard-layout__container">
-            <header className="dashboard-layout__header"></header>
+            <header className="dashboard-layout__header">
+              <HeaderLayout />
+            </header>
             <section className="dashboard-layout__content">{children}</section>
           </div>
         </main>
