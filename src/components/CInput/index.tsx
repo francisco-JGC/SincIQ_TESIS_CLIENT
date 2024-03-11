@@ -17,6 +17,8 @@ interface CInputProps {
   dissabled?: boolean
   min?: number
   max?: number
+  onFocus?: () => void
+  inputStyle?: React.CSSProperties
 }
 export const CInput = ({
   value,
@@ -34,6 +36,8 @@ export const CInput = ({
   max,
   label_span,
   label_span_style,
+  onFocus,
+  inputStyle,
 }: CInputProps) => {
   return (
     <div className={`c-input ${className}`}>
@@ -58,6 +62,7 @@ export const CInput = ({
 
         <input
           id={id}
+          style={inputStyle}
           name={name}
           type={type}
           value={value}
@@ -67,6 +72,7 @@ export const CInput = ({
           disabled={dissabled}
           min={min}
           max={max}
+          onFocus={onFocus}
         />
       </div>
     </div>
