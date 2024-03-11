@@ -6,7 +6,7 @@
   border-radius: 50px;
   color: #fff;
   cursor: pointer;
-  padding: 0.4em 1.3em;
+  padding: 0.6em 1.3em;
   transition: all 0.3s ease;
   position: relative;
 
@@ -26,7 +26,7 @@
   &:hover {
     color: #fff;
     &::before {
-      filter: blur(10px);
+      filter: blur(5px);
     }
   }
 
