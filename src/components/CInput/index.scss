@@ -9,7 +9,7 @@
 
   label {
     margin-bottom: 0.5em;
-    color: #222;
+    color: #fff;
     font-weight: 600;
     position: relative;
   }
@@ -54,8 +54,8 @@
     .icon {
       position: absolute;
       left: 1.3em;
-      cursor: pointer;
-      width: 1.2em;
+      height: 15px !important;
+      transition: all 0.3s ease-in-out;
     }
 
     &:has(.icon) input {
