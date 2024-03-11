@@ -8,7 +8,9 @@ import email_focused from '@/assets/icons/email_focused.svg'
 import email_unfocused from '@/assets/icons/email_unfocused.svg'
 import password_focused from '@/assets/icons/password_focused.svg'
 import password_unfocused from '@/assets/icons/password_unfocused.svg'
+import arrow_right from '@/assets/icons/arrow_right.svg'
 import { useState } from 'react'
+import { CButon } from '@/components/CButon'
 
 export default function Login() {
   const { values, handleInputChange } = useForm({
@@ -49,6 +51,9 @@ export default function Login() {
       <section className="login__form">
         <header className="header">
           <span>No eres miembro?</span>
+          <CButon icon={arrow_right}>
+            <Link href="/register">Registrate</Link>
+          </CButon>
         </header>
 
         <div className="login__form__container">
@@ -68,7 +73,8 @@ export default function Login() {
               onFocus={() => handleFocusedInput('email')}
               inputStyle={{
                 backgroundColor: '#fff',
-                color: '#333',
+                color: '#5918DF',
+                fontWeight: 'bold',
                 paddingLeft: emailFocused ? '5em' : '',
               }}
             />
@@ -85,7 +91,8 @@ export default function Login() {
               onFocus={() => handleFocusedInput('password')}
               inputStyle={{
                 backgroundColor: '#fff',
-                color: '#333',
+                color: '#5918DF',
+                fontWeight: 'bold',
                 paddingLeft: passwordFocused ? '5em' : '',
               }}
             />
