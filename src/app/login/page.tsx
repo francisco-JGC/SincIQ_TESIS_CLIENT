@@ -13,6 +13,7 @@ import arrow_right from '@/assets/icons/arrow_right.svg'
 import google_icon from '@/assets/icons/google.svg'
 import { useState } from 'react'
 import { CButon } from '@/components/CButon'
+import { signIn } from 'next-auth/react'
 
 export default function Login() {
   const { values, handleInputChange } = useForm({
@@ -138,6 +139,10 @@ export default function Login() {
                       background: '#fff',
                       color: '#333',
                     },
+                    onClick: () =>
+                      signIn('google', {
+                        callbackUrl: `${window.location.origin}/dashboard`,
+                      }),
                   }}
                 >
                   Continuar con Google
