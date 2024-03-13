@@ -25,7 +25,15 @@ export default function Home() {
           </li>
         ) : (
           <li>
-            <button onClick={() => signIn()}>Sign in</button>
+            <button
+              onClick={() =>
+                signIn('google', {
+                  callbackUrl: `${window.location.origin}/dashboard`,
+                })
+              }
+            >
+              Sign in
+            </button>
           </li>
         )}
       </ul>
