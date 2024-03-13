@@ -57,7 +57,7 @@ export const HeaderLayout = () => {
         <CSheet title="Perfil" position="right">
           <div className="user__info">
             <Image
-              src={session?.user?.image as string}
+              src={session?.user?.image || ''}
               alt="Avatar"
               width={40}
               height={40}

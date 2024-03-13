@@ -39,19 +39,18 @@ export default function Login() {
   const handleSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
+    toast.dismiss()
 
     const response = await login(values)
 
-    setLoading(false)
-
     if (response.success) {
-      toast.success(`Bienvenido ${response.data.user.name}`)
       router.push('/dashboard')
     } else {
-      toast.error('Error al registrar el usuario', {
+      toast.error('Error al iniciar sesion', {
         description: response.details,
       })
     }
+    setLoading(false)
   }
 
   const FormComponent = (
@@ -98,6 +97,7 @@ export default function Login() {
         icon={arrow_right}
         props={{ type: 'submit' }}
         className="login__button"
+        loading_mode={loading}
       >
         Iniciar sesion
       </CButon>
@@ -107,7 +107,11 @@ export default function Login() {
   return (
     <LoginLayout
       Form={FormComponent}
-      onClickGoogleAuth={() => signIn('google')}
+      onClickGoogleAuth={() =>
+        signIn('google', {
+          callbackUrl: '/dashboard',
+        })
+      }
       titleForm="Iniciar sesion en SyncIQ"
       subtitleForm="Ingresa tus datos para iniciar sesion"
       titleHeaderForm="No eres miembro?"
