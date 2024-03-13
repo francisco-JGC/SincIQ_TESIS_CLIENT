@@ -30,7 +30,7 @@ export const CButon = ({
         justifyContent: 'center',
         alignItems: 'center',
         gap: '0.5rem',
-        filter: loading_mode ? 'brightness(0.6)' : 'brightness(1)',
+        filter: loading_mode ? 'brightness(0.6)' : '',
         cursor: loading_mode ? 'not-allowed' : 'pointer',
         ...props?.style,
       }}
