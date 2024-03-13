@@ -10,6 +10,13 @@
   transition: all 0.3s ease;
   position: relative;
 
+  &[data-icon-size='auto'] {
+    img {
+      width: 1.5em;
+      height: 1.5em;
+    }
+  }
+
   &::before {
     content: '';
     position: absolute;
