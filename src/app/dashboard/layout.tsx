@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { HeaderLayout } from '@/components/HeaderLayout'
 import { Toaster } from 'sonner'
+import { SocketProvider } from '@/context/SocketProvider'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -53,12 +54,16 @@ export default function RootLayout({
               </div>
             </div>
           </nav>
-          <div className="dashboard-layout__container">
-            <header className="dashboard-layout__header">
-              <HeaderLayout />
-            </header>
-            <section className="dashboard-layout__content">{children}</section>
-          </div>
+          <SocketProvider>
+            <div className="dashboard-layout__container">
+              <header className="dashboard-layout__header">
+                <HeaderLayout />
+              </header>
+              <section className="dashboard-layout__content">
+                {children}
+              </section>
+            </div>
+          </SocketProvider>
         </main>
 
         <Toaster />
