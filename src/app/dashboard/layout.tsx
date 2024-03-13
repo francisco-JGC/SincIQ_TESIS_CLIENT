@@ -9,7 +9,7 @@ import { HeaderLayout } from '@/components/HeaderLayout'
 
 const poppins = Poppins({
   subsets: ['latin'],
-  weight: '100',
+  weight: '400',
 })
 
 export const metadata: Metadata = {
