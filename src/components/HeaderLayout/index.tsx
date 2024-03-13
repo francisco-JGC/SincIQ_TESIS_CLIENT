@@ -6,12 +6,13 @@ import { useState } from 'react'
 import searchIcon from '@/assets/icons/search_icon.svg'
 import bellIcon from '@/assets/icons/bell_icon.svg'
 import chatIcon from '@/assets/icons/chat_icon.svg'
-import malobFoto from '@/assets/img/malob.jpg'
 import Image from 'next/image'
 import { CSheet } from '../CSheet'
+import { useSession, signOut } from 'next-auth/react'
 
 export const HeaderLayout = () => {
   const [search, setSearch] = useState('')
+  const { data: session } = useSession()
 
   const handleSearch = (e: any) => {
     setSearch(e.value)
@@ -55,10 +56,15 @@ export const HeaderLayout = () => {
 
         <CSheet title="Perfil" position="right">
           <div className="user__info">
-            <Image src={malobFoto} alt="Avatar" width={40} height={40} />
+            <Image
+              src={session?.user?.image as string}
+              alt="Avatar"
+              width={40}
+              height={40}
+            />
             <p>
-              <span>Bertha Garcia</span>
-              <small>Bienvenida</small>
+              <span>{session?.user?.name}</span>
+              <small>Bienvenido/a</small>
             </p>
           </div>
         </CSheet>
