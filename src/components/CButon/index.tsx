@@ -7,6 +7,7 @@ interface CButonProps {
   props?: React.ButtonHTMLAttributes<HTMLButtonElement>
   icon?: any
   poisition_icon?: 'left' | 'right'
+  icon_size?: 'auto' | 'default'
 }
 export const CButon = ({
   children,
@@ -14,6 +15,7 @@ export const CButon = ({
   props,
   icon,
   poisition_icon = 'right',
+  icon_size = 'default',
 }: CButonProps) => {
   return (
     <button
@@ -26,6 +28,7 @@ export const CButon = ({
         gap: '0.5rem',
         ...props?.style,
       }}
+      data-icon-size={icon_size}
     >
       {poisition_icon === 'left' && icon && (
         <Image
