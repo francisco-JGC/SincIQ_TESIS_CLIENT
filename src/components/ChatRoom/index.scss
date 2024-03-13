@@ -2,6 +2,10 @@
   width: 100%;
 
   .chat-room__contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+
     &__header {
       display: flex;
       align-items: center;
@@ -20,6 +24,8 @@
 
         h3 {
           font-size: 1.1em;
+          font-weight: 600;
+          letter-spacing: 1px;
         }
 
         small {
@@ -38,6 +44,18 @@
             background-color: greenyellow;
           }
         }
+      }
+    }
+
+    &__notifications {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      justify-content: center;
+
+      img {
+        width: 25px;
+        height: 25px;
       }
     }
   }
