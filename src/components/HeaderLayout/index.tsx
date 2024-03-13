@@ -9,14 +9,37 @@ import chatIcon from '@/assets/icons/chat_icon.svg'
 import Image from 'next/image'
 import { CSheet } from '../CSheet'
 import { useSession, signOut } from 'next-auth/react'
+import ChatRoom from '../ChatRoom'
+
+import { useEffect } from 'react'
+import { useSocket } from '@/context/SocketProvider'
 
 export const HeaderLayout = () => {
   const [search, setSearch] = useState('')
   const { data: session } = useSession()
+  const { socket } = useSocket()
 
   const handleSearch = (e: any) => {
     setSearch(e.value)
   }
+
+  useEffect(() => {
+    const receiveMessageHandler = (message: string) => {
+      console.log('recibido', message)
+    }
+
+    const sendMessageHandler = (message: string) => {
+      console.log('enviado', message)
+    }
+
+    if (socket) {
+      socket.on('server:receive-message', receiveMessageHandler)
+      socket.on('server:sending-message', sendMessageHandler)
+    }
+
+    // cleanup
+    return () => {}
+  }, [socket])
 
   return (
     <section className="header-container">
@@ -42,7 +65,7 @@ export const HeaderLayout = () => {
           />
         </div>
 
-        <CSheet title="Mensajes" position="right">
+        <CSheet title="Mensajes" position="right" Component={<ChatRoom />}>
           <div className="user__chat" data-count="9" data-active="true">
             <Image
               src={chatIcon}
