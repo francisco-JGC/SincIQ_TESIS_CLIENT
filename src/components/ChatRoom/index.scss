@@ -1,0 +1,44 @@
+.chat-room-container {
+  width: 100%;
+
+  .chat-room__contacts {
+    &__header {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 1em;
+
+      img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      div {
+        text-align: center;
+
+        h3 {
+          font-size: 1.1em;
+        }
+
+        small {
+          color: #999;
+          position: relative;
+
+          &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: greenyellow;
+          }
+        }
+      }
+    }
+  }
+}
