@@ -6,6 +6,7 @@ import interrogationCircle from '@/assets/icons/interrogation_circle.svg'
 import Link from 'next/link'
 import Image from 'next/image'
 import { HeaderLayout } from '@/components/HeaderLayout'
+import { Toaster } from 'sonner'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -59,6 +60,8 @@ export default function RootLayout({
             <section className="dashboard-layout__content">{children}</section>
           </div>
         </main>
+
+        <Toaster />
       </body>
     </html>
   )
