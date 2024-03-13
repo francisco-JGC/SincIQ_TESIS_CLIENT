@@ -14,6 +14,8 @@ import { CButon } from '@/components/CButon'
 import { signIn } from 'next-auth/react'
 import { LoginLayout } from '@/components/LoginLayout'
 import { useRouter } from 'next/navigation'
+import { register } from '@/services/auth'
+import { toast } from 'sonner'
 
 export default function Register() {
   const { values, handleInputChange } = useForm({
@@ -24,6 +26,8 @@ export default function Register() {
   const [emailFocused, setEmailFocused] = useState<boolean>(false)
   const [passwordFocused, setPasswordFocused] = useState<boolean>(false)
   const [usernameFocused, setUsernameFocused] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
+
   const router = useRouter()
 
   const handleFocusedInput = (input: string) => {
@@ -42,8 +46,26 @@ export default function Register() {
     }
   }
 
+  const handleSubmitRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setLoading(true)
+
+    const response = await register(values)
+
+    setLoading(false)
+
+    if (response.success) {
+      toast.success('Usuario registrado correctamente')
+      router.push('/login')
+    } else {
+      toast.error('Error al registrar el usuario', {
+        description: response.details,
+      })
+    }
+  }
+
   const FormComponent = (
-    <form className="form" style={{}}>
+    <form className="form" onSubmit={handleSubmitRegister}>
       <CInput
         value={values.username}
         onChange={handleInputChange}
@@ -105,6 +127,7 @@ export default function Register() {
         icon={arrow_right}
         props={{ type: 'submit' }}
         className="login__button"
+        loading_mode={loading}
       >
         Iniciar sesion
       </CButon>
