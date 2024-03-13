@@ -65,7 +65,13 @@ export const HeaderLayout = () => {
           />
         </div>
 
-        <CSheet title="Mensajes" position="right" Component={<ChatRoom />}>
+        <CSheet
+          title=""
+          Component={<ChatRoom />}
+          styles={{
+            width: '800px',
+          }}
+        >
           <div className="user__chat" data-count="9" data-active="true">
             <Image
               src={chatIcon}
