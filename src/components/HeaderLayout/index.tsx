@@ -13,11 +13,18 @@ import ChatRoom from '../ChatRoom'
 
 import { useEffect } from 'react'
 import { useSocket } from '@/context/SocketProvider'
+import { Client, useClientsStore } from '@/store/messages/clientsStore'
+import { getClients } from '@/services/clients'
+import { shallow } from 'zustand/shallow'
 
 export const HeaderLayout = () => {
   const [search, setSearch] = useState('')
   const { data: session } = useSession()
   const { socket } = useSocket()
+
+  const clients = useClientsStore((state) => state.clients)
+  const addClients = useClientsStore((state) => state.addClient)
+  const searchClient = useClientsStore((state) => state.searchClient)
 
   const handleSearch = (e: any) => {
     setSearch(e.value)
@@ -40,6 +47,24 @@ export const HeaderLayout = () => {
     // cleanup
     return () => {}
   }, [socket])
+
+  useEffect(() => {
+    console.log('clients', clients)
+
+    if (clients.length < 1) {
+      getClients().then((data) => {
+        if (data) {
+          data.data.forEach((client: Client) => {
+            const isClient = searchClient(client.id)
+
+            if (!isClient) {
+              addClients(client)
+            }
+          })
+        }
+      })
+    }
+  }, [])
 
   return (
     <section className="header-container">
