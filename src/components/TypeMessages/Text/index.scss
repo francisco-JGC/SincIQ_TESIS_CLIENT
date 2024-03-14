@@ -1,0 +1,40 @@
+@use '@/sass/index' as *;
+
+.container-text__message {
+  width: 85%;
+  padding: 1em;
+  height: auto;
+
+  .text__message__date {
+    margin-bottom: 0.5em;
+    color: #999;
+
+    &[data-sender='system'] {
+      text-align: right;
+    }
+  }
+
+  .text__message {
+    background-color: $background-color;
+    padding: 1em;
+    border-radius: 10px;
+    min-width: fit-content;
+
+    pre {
+      font-size: 1em;
+      font-weight: 500;
+      width: 100%;
+      font-family: 'Popins', sans-serif;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    &[data-sender='system'] {
+      background: linear-gradient(90deg, $primary-color, #8f6dd3);
+    }
+  }
+
+  &[data-sender='system'] {
+    align-self: flex-end;
+  }
+}
