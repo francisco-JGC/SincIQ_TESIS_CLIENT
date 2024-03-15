@@ -19,6 +19,8 @@ interface CInputProps {
   max?: number
   onFocus?: () => void
   inputStyle?: React.CSSProperties
+  autocomplete?: 'on' | 'off'
+  onClickIcon?: () => void
 }
 export const CInput = ({
   value,
@@ -38,6 +40,8 @@ export const CInput = ({
   label_span_style,
   onFocus,
   inputStyle,
+  autocomplete,
+  onClickIcon,
 }: CInputProps) => {
   return (
     <div className={`c-input ${className}`}>
@@ -58,7 +62,9 @@ export const CInput = ({
       )}
 
       <div className="c-input__container">
-        {icon && <Image className="icon" src={icon} alt="icon" />}
+        {icon && (
+          <Image className="icon" src={icon} alt="icon" onClick={onClickIcon} />
+        )}
 
         <input
           id={id}
@@ -73,6 +79,7 @@ export const CInput = ({
           min={min}
           max={max}
           onFocus={onFocus}
+          autoComplete={autocomplete}
         />
       </div>
     </div>
