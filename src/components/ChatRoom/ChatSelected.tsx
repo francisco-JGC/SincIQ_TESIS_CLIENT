@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Client } from '@/store/messages/clientsStore'
+import { Client, useClientsStore } from '@/store/messages/clientsStore'
 import icon_user from '@/assets/img/icon_user.png'
 import send_message from '@/assets/icons/send_message.svg'
 import active_bot from '@/assets/icons/active_bot.svg'
@@ -18,6 +18,8 @@ import { TextMessage } from '../TypeMessages/Text'
 import { CInput } from '../CInput'
 import { useForm } from '@/hooks/useForm'
 import { AlertDialogModal } from '../AlertDialog'
+import { sendMessage } from '@/services/whatsapp'
+import { toast } from 'sonner'
 
 interface IChatSelectedProps {
   setSelectedClient: (client: Client | undefined) => void
@@ -32,12 +34,37 @@ export const ChatSelected = ({
   arrowIcon,
   handleChangeBotStatus,
 }: IChatSelectedProps) => {
-  const { values, handleInputChange } = useForm({
+  const { values, handleInputChange, reset } = useForm({
     message: '',
   })
 
+  const setMessageToClientConversation = useClientsStore(
+    (state) => state.setMessageToClientConversation,
+  )
+
   const handleSendMessage = async () => {
-    console.log('send message')
+    if (!selectedClient) return
+    if (!values.message) return
+
+    setMessageToClientConversation(selectedClient?.phone_number as string, {
+      id: 0,
+      content: values.message,
+      timestamp: new Date().toISOString(),
+      sender: 'system',
+      receiver: selectedClient?.phone_number as string,
+    })
+    reset()
+
+    const response = await sendMessage(
+      selectedClient?.phone_number as string,
+      values.message,
+    )
+
+    if (!response.status) {
+      toast.error('Error al enviar el mensaje', {
+        description: 'Por favor intente de nuevo',
+      })
+    }
   }
 
   return (
@@ -119,6 +146,7 @@ export const ChatSelected = ({
           icon={send_message}
           autocomplete="off"
           onClickIcon={handleSendMessage}
+          required
         />
       </form>
     </>
