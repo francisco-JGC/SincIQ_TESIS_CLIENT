@@ -5,19 +5,9 @@ import icon_user from '@/assets/img/icon_user.png'
 import arrowIcon from '@/assets/icons/arrow_right.svg'
 import notificationsIcon from '@/assets/icons/notifications.svg'
 import { Switch } from '../Switch'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Client, useClientsStore } from '@/store/messages/clientsStore'
 import { momentDate } from '@/utils/momentDate'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
-import { MoreHorizontal } from 'lucide-react'
 import { ChatSelected } from './ChatSelected'
 import { toast } from 'sonner'
 import { changeBotStatus } from '@/services/clients'
