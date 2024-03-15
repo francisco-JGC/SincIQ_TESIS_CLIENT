@@ -42,7 +42,7 @@ export const HeaderLayout = () => {
       console.log('recibido', message)
 
       setMessageToClientConversation(message.client.phone_number, {
-        id: 0,
+        id: new Date().getTime(),
         content: message.message,
         timestamp: new Date().toISOString(),
         sender: message.message_by,
@@ -54,7 +54,7 @@ export const HeaderLayout = () => {
       console.log('enviado', message)
 
       setMessageToClientConversation(message.client.phone_number, {
-        id: 0,
+        id: new Date().getTime(),
         content: message.message,
         timestamp: new Date().toISOString(),
         sender: message.message_by,
@@ -68,7 +68,12 @@ export const HeaderLayout = () => {
     }
 
     // cleanup
-    return () => {}
+    return () => {
+      if (socket) {
+        socket.off('server:receive-message', receiveMessageHandler)
+        socket.off('server:sending-message', sendMessageHandler)
+      }
+    }
   }, [setMessageToClientConversation, socket])
 
   useEffect(() => {
