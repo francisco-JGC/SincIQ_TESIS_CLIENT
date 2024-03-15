@@ -6,6 +6,7 @@ export interface Client {
   phone_number: string
   address: any
   image_url: any
+  bot_status: boolean
   created_at: string
   conversations: Conversation[]
   lastMessage: LastMessage[]
