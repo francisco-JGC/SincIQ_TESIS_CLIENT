@@ -182,7 +182,7 @@
       flex-direction: column;
       padding: 1em;
       height: calc(100lvh - 70px);
-      overflow: auto;
+      overflow-y: auto;
 
       // scroll pequeño en el chat
       &::-webkit-scrollbar {
