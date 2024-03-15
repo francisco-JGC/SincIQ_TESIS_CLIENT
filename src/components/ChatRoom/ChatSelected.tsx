@@ -2,6 +2,8 @@ import Image from 'next/image'
 import { Client } from '@/store/messages/clientsStore'
 import icon_user from '@/assets/img/icon_user.png'
 import send_message from '@/assets/icons/send_message.svg'
+import active_bot from '@/assets/icons/active_bot.svg'
+import desactive_bot from '@/assets/icons/desactive_bot.svg'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,19 +17,20 @@ import { MoreHorizontal } from 'lucide-react'
 import { TextMessage } from '../TypeMessages/Text'
 import { CInput } from '../CInput'
 import { useForm } from '@/hooks/useForm'
+import { AlertDialogModal } from '../AlertDialog'
 
 interface IChatSelectedProps {
   setSelectedClient: (client: Client | undefined) => void
   selectedClient: Client | undefined
-  actionChat: (client: Client) => void
+  handleChangeBotStatus: () => void
   arrowIcon: string
 }
 
 export const ChatSelected = ({
   setSelectedClient,
   selectedClient,
-  actionChat,
   arrowIcon,
+  handleChangeBotStatus,
 }: IChatSelectedProps) => {
   const { values, handleInputChange } = useForm({
     message: '',
@@ -54,8 +57,27 @@ export const ChatSelected = ({
           />
           <span>{selectedClient?.username}</span>
         </button>
+        <div>
+          <AlertDialogModal
+            title={`¿Estás seguro de ${
+              selectedClient?.bot_status ? 'desactivar' : 'activar'
+            } el BOT?`}
+            description="¿Quieres cambiar el estado del BOT?"
+            onConfirm={handleChangeBotStatus}
+          >
+            <Image
+              src={selectedClient?.bot_status ? active_bot : desactive_bot}
+              alt="bot"
+              width={22}
+              height={22}
+            />
+          </AlertDialogModal>
 
-        <ActionChat client={selectedClient as Client} />
+          <ActionChat
+            client={selectedClient as Client}
+            handleChangeBotStatus={handleChangeBotStatus}
+          />
+        </div>
       </div>
       <div
         className="chat-room__messages__content"
@@ -105,9 +127,10 @@ export const ChatSelected = ({
 
 interface IActionsChat {
   client: Client
+  handleChangeBotStatus: () => void
 }
 
-export const ActionChat = ({ client }: IActionsChat) => {
+export const ActionChat = ({ client, handleChangeBotStatus }: IActionsChat) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -130,7 +153,16 @@ export const ActionChat = ({ client }: IActionsChat) => {
         <DropdownMenuItem>Actualizar perfil</DropdownMenuItem>
         <DropdownMenuItem>Archivos compartidos</DropdownMenuItem>
         <DropdownMenuItem>Silenciar notificaciones</DropdownMenuItem>
-        <DropdownMenuItem>Desactivar BOT</DropdownMenuItem>
+        <DropdownMenuItem onClick={(e) => e.preventDefault()}>
+          <AlertDialogModal
+            title={`¿Estás seguro de ${
+              client?.bot_status ? 'desactivar' : 'activar'
+            } el BOT?`}
+            description="¿Quieres cambiar el estado del BOT?"
+            nameButton={`${client?.bot_status ? 'Desactivar' : 'Activar'} BOT`}
+            onConfirm={handleChangeBotStatus}
+          />
+        </DropdownMenuItem>
         <DropdownMenuItem>Vaciar chat</DropdownMenuItem>
         <DropdownMenuSeparator />
       </DropdownMenuContent>
