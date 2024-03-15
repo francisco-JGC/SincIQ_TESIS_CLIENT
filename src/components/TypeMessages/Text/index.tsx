@@ -1,6 +1,6 @@
-import { momentDate } from '@/utils/momentDate'
 import './index.scss'
 import { Message } from '@/store/messages/clientsStore'
+import { momentDate } from '@/utils/momentDate'
 
 export interface TextMessageProps {
   message: Message
@@ -18,7 +18,7 @@ export const TextMessage = ({ message, id }: TextMessageProps) => {
         <small>{momentDate(message.timestamp)}</small>
       </div>
       <div className="text__message" data-sender={message.sender}>
-        <pre>{message.content}</pre>
+        <pre data-sender={message.sender}>{message.content}</pre>
       </div>
     </div>
   )
