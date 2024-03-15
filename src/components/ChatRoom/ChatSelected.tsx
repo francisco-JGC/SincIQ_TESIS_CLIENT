@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import { Client } from '@/store/messages/clientsStore'
 import icon_user from '@/assets/img/icon_user.png'
-import { momentDate } from '@/utils/momentDate'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +12,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from 'lucide-react'
 import { TextMessage } from '../TypeMessages/Text'
+import { useEffect, useState } from 'react'
 
 interface IChatSelectedProps {
   setSelectedClient: (client: Client | undefined) => void
@@ -47,10 +47,23 @@ export const ChatSelected = ({
 
         <ActionChat client={selectedClient as Client} />
       </div>
-      <div className="chat-room__messages__content">
+      <div
+        className="chat-room__messages__content"
+        ref={(el) => {
+          if (el) {
+            el.scrollTop = el.scrollHeight
+          }
+        }}
+      >
         {selectedClient?.conversations.map((conversation) => {
-          return conversation.messages.map((message) => {
-            return <TextMessage key={message.id} message={message} />
+          return conversation.messages.map((message, index) => {
+            return (
+              <TextMessage
+                key={index}
+                message={message}
+                id={`message-${index}`}
+              />
+            )
           })
         })}
       </div>
