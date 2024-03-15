@@ -38,21 +38,7 @@ export const HeaderLayout = () => {
   }
 
   useEffect(() => {
-    const receiveMessageHandler = (message: ISocketMessage) => {
-      console.log('recibido', message)
-
-      setMessageToClientConversation(message.client.phone_number, {
-        id: new Date().getTime(),
-        content: message.message,
-        timestamp: new Date().toISOString(),
-        sender: message.message_by,
-        receiver: message.client.phone_number,
-      })
-    }
-
-    const sendMessageHandler = (message: ISocketMessage) => {
-      console.log('enviado', message)
-
+    const handleMessages = (message: ISocketMessage) => {
       setMessageToClientConversation(message.client.phone_number, {
         id: new Date().getTime(),
         content: message.message,
@@ -63,15 +49,15 @@ export const HeaderLayout = () => {
     }
 
     if (socket) {
-      socket.on('server:receive-message', receiveMessageHandler)
-      socket.on('server:sending-message', sendMessageHandler)
+      socket.on('server:receive-message', handleMessages)
+      socket.on('server:sending-message', handleMessages)
     }
 
     // cleanup
     return () => {
       if (socket) {
-        socket.off('server:receive-message', receiveMessageHandler)
-        socket.off('server:sending-message', sendMessageHandler)
+        socket.off('server:receive-message', handleMessages)
+        socket.off('server:sending-message', handleMessages)
       }
     }
   }, [setMessageToClientConversation, socket])
