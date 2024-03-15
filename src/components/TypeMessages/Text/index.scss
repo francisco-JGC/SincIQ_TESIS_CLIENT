@@ -1,9 +1,9 @@
 @use '@/sass/index' as *;
 
 .container-text__message {
-  width: 85%;
-  padding: 1em;
   height: auto;
+  display: flex;
+  flex-direction: column;
 
   .text__message__date {
     margin-bottom: 0.5em;
@@ -16,25 +16,32 @@
 
   .text__message {
     background-color: $background-color;
-    padding: 1em;
+    padding: 0.5em;
     border-radius: 10px;
-    min-width: fit-content;
+    width: fit-content;
+    display: flex;
+    align-items: flex-start;
 
     pre {
       font-size: 1em;
       font-weight: 500;
-      width: 100%;
       font-family: 'Popins', sans-serif;
       white-space: pre-wrap;
+      max-width: 280px;
+      width: fit-content;
       word-wrap: break-word;
       overflow-wrap: break-word;
     }
+
     &[data-sender='system'] {
       background: linear-gradient(90deg, $primary-color, #8f6dd3);
+      text-align: start;
     }
   }
 
   &[data-sender='system'] {
     align-self: flex-end;
+    text-align: right;
+    align-items: flex-end;
   }
 }
