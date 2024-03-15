@@ -13,7 +13,11 @@ import ChatRoom from '../ChatRoom'
 
 import { useEffect } from 'react'
 import { useSocket } from '@/context/SocketProvider'
-import { Client, useClientsStore } from '@/store/messages/clientsStore'
+import {
+  Client,
+  ISocketMessage,
+  useClientsStore,
+} from '@/store/messages/clientsStore'
 import { getClients } from '@/services/clients'
 import { shallow } from 'zustand/shallow'
 
@@ -25,18 +29,37 @@ export const HeaderLayout = () => {
   const clients = useClientsStore((state) => state.clients)
   const addClients = useClientsStore((state) => state.addClient)
   const searchClient = useClientsStore((state) => state.searchClient)
+  const setMessageToClientConversation = useClientsStore(
+    (state) => state.setMessageToClientConversation,
+  )
 
   const handleSearch = (e: any) => {
     setSearch(e.value)
   }
 
   useEffect(() => {
-    const receiveMessageHandler = (message: string) => {
+    const receiveMessageHandler = (message: ISocketMessage) => {
       console.log('recibido', message)
+
+      setMessageToClientConversation(message.client.phone_number, {
+        id: 0,
+        content: message.message,
+        timestamp: new Date().toISOString(),
+        sender: message.message_by,
+        receiver: message.client.phone_number,
+      })
     }
 
-    const sendMessageHandler = (message: string) => {
+    const sendMessageHandler = (message: ISocketMessage) => {
       console.log('enviado', message)
+
+      setMessageToClientConversation(message.client.phone_number, {
+        id: 0,
+        content: message.message,
+        timestamp: new Date().toISOString(),
+        sender: message.message_by,
+        receiver: message.client.phone_number,
+      })
     }
 
     if (socket) {
@@ -46,7 +69,7 @@ export const HeaderLayout = () => {
 
     // cleanup
     return () => {}
-  }, [socket])
+  }, [setMessageToClientConversation, socket])
 
   useEffect(() => {
     console.log('clients', clients)
