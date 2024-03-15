@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Client } from '@/store/messages/clientsStore'
 import icon_user from '@/assets/img/icon_user.png'
+import send_message from '@/assets/icons/send_message.svg'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +13,8 @@ import {
 import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from 'lucide-react'
 import { TextMessage } from '../TypeMessages/Text'
-import { useEffect, useState } from 'react'
+import { CInput } from '../CInput'
+import { useForm } from '@/hooks/useForm'
 
 interface IChatSelectedProps {
   setSelectedClient: (client: Client | undefined) => void
@@ -27,6 +29,14 @@ export const ChatSelected = ({
   actionChat,
   arrowIcon,
 }: IChatSelectedProps) => {
+  const { values, handleInputChange } = useForm({
+    message: '',
+  })
+
+  const handleSendMessage = async () => {
+    console.log('send message')
+  }
+
   return (
     <>
       <div className="chat-room__messages__header">
@@ -54,6 +64,9 @@ export const ChatSelected = ({
             el.scrollTop = el.scrollHeight
           }
         }}
+        style={{
+          height: 'calc(100lvh - 70px - 70px)',
+        }}
       >
         {selectedClient?.conversations.map((conversation) => {
           return conversation.messages.map((message, index) => {
@@ -67,6 +80,25 @@ export const ChatSelected = ({
           })
         })}
       </div>
+      <form
+        className="chat-room__messages__footer"
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSendMessage()
+        }}
+      >
+        <CInput
+          type="text"
+          placeholder="Escribe un mensaje"
+          className="input-message"
+          name="message"
+          value={values.message}
+          onChange={handleInputChange}
+          icon={send_message}
+          autocomplete="off"
+          onClickIcon={handleSendMessage}
+        />
+      </form>
     </>
   )
 }
