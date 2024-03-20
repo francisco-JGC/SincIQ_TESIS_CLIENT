@@ -15,8 +15,9 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'SincIQ',
-  description: 'SincIQ',
+  title: 'SyncIQ',
+  description:
+    'Gestiona tus ventas y clientes de manera sencilla y eficiente con ayuda de la Inteligencia Artificial.',
 }
 
 export default function RootLayout({
