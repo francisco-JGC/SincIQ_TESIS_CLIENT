@@ -19,7 +19,6 @@ import {
   useClientsStore,
 } from '@/store/messages/clientsStore'
 import { getClients } from '@/services/clients'
-import { shallow } from 'zustand/shallow'
 
 export const HeaderLayout = () => {
   const [search, setSearch] = useState('')
@@ -63,10 +62,10 @@ export const HeaderLayout = () => {
   }, [setMessageToClientConversation, socket])
 
   useEffect(() => {
-    console.log('clients', clients)
-
+    console.log('pidiendo clientes')
     if (clients.length < 1) {
       getClients().then((data) => {
+        console.log('clientes', data)
         if (data) {
           data.data.forEach((client: Client) => {
             const isClient = searchClient(client.id)
