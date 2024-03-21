@@ -10,12 +10,18 @@ import { Client, useClientsStore } from '@/store/messages/clientsStore'
 import { momentDate } from '@/utils/momentDate'
 import { ChatSelected } from './ChatSelected'
 import { toast } from 'sonner'
-import { changeBotStatus } from '@/services/clients'
+import {
+  changeBotStatus,
+  clearConversationFromClient,
+} from '@/services/clients'
 
 export default function ChatRoom() {
   const { data: session } = useSession()
   const [notifications, setNotifications] = useState<boolean>(true)
   const clients = useClientsStore((state) => state.clients)
+  const clearConversationFromClientStorage = useClientsStore(
+    (state) => state.clearConversationFromClientStorage,
+  )
 
   const [selectedClient, setSelectedClient] = useState<Client>()
 
@@ -43,6 +49,25 @@ export default function ChatRoom() {
       toast.success('BOT actualizado correctamente')
     } else {
       toast.error('Error al actualizar el BOT')
+    }
+  }
+
+  const handleClearConversation = async () => {
+    toast.loading('Limpiando conversación', {
+      description: 'Por favor espere...',
+    })
+
+    const response = await clearConversationFromClient(
+      selectedClient?.id as number,
+    )
+
+    toast.dismiss()
+
+    if (response.success) {
+      clearConversationFromClientStorage(selectedClient?.id as number)
+      toast.success('Conversación limpiada correctamente')
+    } else {
+      toast.error('Error al limpiar la conversación')
     }
   }
 
@@ -101,9 +126,9 @@ export default function ChatRoom() {
                 <div className="chat-room__contacts__chats__chat__item__info">
                   <div className="chat-room__contacts__chats__chat__item__info__header">
                     <h4>{client.username} </h4>
-                    <span>{momentDate(client.lastMessage[0].timestamp)}</span>
+                    <span>{momentDate(client.lastMessage[0]?.timestamp)}</span>
                   </div>
-                  <small>{client.lastMessage[0].content}</small>
+                  <small>{client.lastMessage[0]?.content}</small>
                 </div>
               </div>
             ))}
@@ -118,6 +143,7 @@ export default function ChatRoom() {
           selectedClient={selectedClient}
           arrowIcon={arrowIcon}
           handleChangeBotStatus={handleChangeBotStatus}
+          handleClearConversation={handleClearConversation}
         />
       </section>
     </div>
