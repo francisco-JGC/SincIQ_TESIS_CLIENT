@@ -21,7 +21,7 @@ export interface Conversation {
 export interface Message {
   id: number
   content: string
-  timestamp: string
+  created_at: string
   sender: string
   receiver: string
 }
@@ -29,7 +29,7 @@ export interface Message {
 export interface LastMessage {
   id: number
   content: string
-  timestamp: string
+  created_at: string
   sender: string
   receiver: string
   conversation_id: number
@@ -89,7 +89,7 @@ export const useClientsStore = create<ClientsStore>((set, get) => ({
             {
               id: message.id,
               content: message.content,
-              timestamp: message.timestamp,
+              created_at: message.created_at,
               sender: message.sender,
               receiver: message.receiver,
               conversation_id: client.conversations[0].id,
