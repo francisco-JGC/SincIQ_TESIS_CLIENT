@@ -51,7 +51,7 @@ export const ChatSelected = ({
     setMessageToClientConversation(selectedClient?.phone_number as string, {
       id: 0,
       content: values.message,
-      timestamp: new Date().toISOString(),
+      created_at: new Date().toISOString(),
       sender: 'system',
       receiver: selectedClient?.phone_number as string,
     })
