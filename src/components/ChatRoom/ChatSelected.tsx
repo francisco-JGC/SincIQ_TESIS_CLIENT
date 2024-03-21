@@ -26,6 +26,7 @@ interface IChatSelectedProps {
   selectedClient: Client | undefined
   handleChangeBotStatus: () => void
   arrowIcon: string
+  handleClearConversation: () => void
 }
 
 export const ChatSelected = ({
@@ -33,6 +34,7 @@ export const ChatSelected = ({
   selectedClient,
   arrowIcon,
   handleChangeBotStatus,
+  handleClearConversation,
 }: IChatSelectedProps) => {
   const { values, handleInputChange, reset } = useForm({
     message: '',
@@ -103,6 +105,7 @@ export const ChatSelected = ({
           <ActionChat
             client={selectedClient as Client}
             handleChangeBotStatus={handleChangeBotStatus}
+            handleClearConversation={handleClearConversation}
           />
         </div>
       </div>
@@ -156,9 +159,14 @@ export const ChatSelected = ({
 interface IActionsChat {
   client: Client
   handleChangeBotStatus: () => void
+  handleClearConversation: () => void
 }
 
-export const ActionChat = ({ client, handleChangeBotStatus }: IActionsChat) => {
+export const ActionChat = ({
+  client,
+  handleChangeBotStatus,
+  handleClearConversation,
+}: IActionsChat) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -191,7 +199,18 @@ export const ActionChat = ({ client, handleChangeBotStatus }: IActionsChat) => {
             onConfirm={handleChangeBotStatus}
           />
         </DropdownMenuItem>
-        <DropdownMenuItem>Vaciar chat</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={(e) => {
+            e.preventDefault()
+          }}
+        >
+          <AlertDialogModal
+            title="¿Estás seguro de limpiar la conversación?"
+            description="Al limpiar la conversación de este chat se eliminarán todos los mensajes registrados en el sistema. ¿Estás seguro de querer hacerlo?"
+            nameButton="Limpiar conversación"
+            onConfirm={handleClearConversation}
+          />
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
       </DropdownMenuContent>
     </DropdownMenu>
