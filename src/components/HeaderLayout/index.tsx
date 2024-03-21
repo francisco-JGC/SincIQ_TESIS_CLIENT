@@ -19,6 +19,7 @@ import {
   useClientsStore,
 } from '@/store/messages/clientsStore'
 import { getClients } from '@/services/clients'
+import { toast } from 'sonner'
 
 export const HeaderLayout = () => {
   const [search, setSearch] = useState('')
@@ -41,7 +42,7 @@ export const HeaderLayout = () => {
       setMessageToClientConversation(message.client.phone_number, {
         id: new Date().getTime(),
         content: message.message,
-        timestamp: new Date().toISOString(),
+        created_at: new Date().toISOString(),
         sender: message.message_by,
         receiver: message.client.phone_number,
       })
@@ -62,18 +63,19 @@ export const HeaderLayout = () => {
   }, [setMessageToClientConversation, socket])
 
   useEffect(() => {
-    console.log('pidiendo clientes')
+    toast.dismiss()
     if (clients.length < 1) {
       getClients().then((data) => {
-        console.log('clientes', data)
-        if (data) {
-          data.data.forEach((client: Client) => {
+        if (data.success) {
+          data.data?.forEach((client: Client) => {
             const isClient = searchClient(client.id)
 
             if (!isClient) {
               addClients(client)
             }
           })
+        } else {
+          toast.error('No se pudieron cargar los clientes')
         }
       })
     }
