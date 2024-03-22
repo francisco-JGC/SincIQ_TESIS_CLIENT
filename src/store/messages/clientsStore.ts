@@ -75,16 +75,16 @@ export const useClientsStore = create<ClientsStore>((set, get) => ({
       clients: state.clients.map((client) => {
         if (client.phone_number === phone_number) {
           const lastMessage =
-            client.conversations[0].messages[
+            client.conversations[0]?.messages[
               client.conversations[0].messages.length - 1
             ]
           if (
-            lastMessage.content === message.content &&
-            lastMessage.sender === message.sender
+            lastMessage?.content === message.content &&
+            lastMessage?.sender === message.sender
           ) {
             return client
           }
-          client.conversations[0].messages.push(message)
+          client.conversations[0]?.messages.push(message)
           client.lastMessage = [
             {
               id: message.id,
