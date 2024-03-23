@@ -118,7 +118,9 @@ export const useClientsStore = create<ClientsStore>((set, get) => ({
     set((state) => ({
       clients: state.clients.map((client) => {
         if (client.id == client_id) {
-          client.conversations[0].seen = seenState
+          if (client.conversations.length > 0) {
+            client.conversations[0].seen = seenState
+          }
         }
 
         return client
