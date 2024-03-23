@@ -15,6 +15,7 @@ export interface Client {
 export interface Conversation {
   id: number
   system: string
+  seen: boolean
   messages: Message[]
 }
 
@@ -41,6 +42,7 @@ export interface ISocketMessage {
   from: string
   type_message: string
   message_by: string
+  created_at: string
 }
 
 export interface IClient {
@@ -59,6 +61,7 @@ type ClientsStore = {
     message: Message,
   ) => void
   clearConversationFromClientStorage: (client_id: number) => void
+  changeSeenConversation: (client_id: number, seenState: boolean) => void
 }
 
 export const useClientsStore = create<ClientsStore>((set, get) => ({
@@ -108,6 +111,16 @@ export const useClientsStore = create<ClientsStore>((set, get) => ({
             client.lastMessage = []
           }
         }
+        return client
+      }),
+    })),
+  changeSeenConversation: (client_id, seenState) =>
+    set((state) => ({
+      clients: state.clients.map((client) => {
+        if (client.id == client_id) {
+          client.conversations[0].seen = seenState
+        }
+
         return client
       }),
     })),
