@@ -35,7 +35,9 @@ export const HeaderLayout = () => {
   const changeSeenConversation = useClientsStore(
     (state) => state.changeSeenConversation,
   )
-
+  const orderClientsByLastMessage = useClientsStore(
+    (state) => state.orderClientsByLastMessage,
+  )
   const handleSearch = (e: any) => {
     setSearch(e.value)
   }
@@ -48,9 +50,11 @@ export const HeaderLayout = () => {
         created_at: message.created_at,
         sender: message.message_by,
         receiver: message.client.phone_number,
+        conversations: message.conversations,
       })
 
       changeSeenConversation(message.client.id as unknown as number, false)
+      orderClientsByLastMessage()
     }
 
     if (socket) {
@@ -65,7 +69,12 @@ export const HeaderLayout = () => {
         socket.off('server:sending-message', handleMessages)
       }
     }
-  }, [setMessageToClientConversation, socket, changeSeenConversation])
+  }, [
+    setMessageToClientConversation,
+    socket,
+    changeSeenConversation,
+    orderClientsByLastMessage,
+  ])
 
   useEffect(() => {
     toast.dismiss()
@@ -79,12 +88,14 @@ export const HeaderLayout = () => {
               addClients(client)
             }
           })
+
+          orderClientsByLastMessage()
         } else {
           toast.error('No se pudieron cargar los clientes')
         }
       })
     }
-  }, [clients, addClients, searchClient])
+  }, [clients, addClients, searchClient, orderClientsByLastMessage])
 
   return (
     <section className="header-container">
