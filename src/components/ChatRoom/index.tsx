@@ -127,7 +127,11 @@ export default function ChatRoom() {
                 <div className="chat-room__contacts__chats__chat__item__info">
                   <div className="chat-room__contacts__chats__chat__item__info__header">
                     <h4>{client.username} </h4>
-                    <span>{momentDate(client.lastMessage[0]?.created_at)}</span>
+                    {client.lastMessage[0]?.created_at && (
+                      <span>
+                        {momentDate(client.lastMessage[0]?.created_at)}
+                      </span>
+                    )}
                   </div>
                   <small>{client.lastMessage[0]?.content}</small>
                 </div>
