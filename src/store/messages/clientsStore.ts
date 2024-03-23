@@ -25,6 +25,7 @@ export interface Message {
   created_at: string
   sender: string
   receiver: string
+  conversations?: Conversation[]
 }
 
 export interface LastMessage {
@@ -43,6 +44,7 @@ export interface ISocketMessage {
   type_message: string
   message_by: string
   created_at: string
+  conversations: Conversation[]
 }
 
 export interface IClient {
@@ -62,6 +64,7 @@ type ClientsStore = {
   ) => void
   clearConversationFromClientStorage: (client_id: number) => void
   changeSeenConversation: (client_id: number, seenState: boolean) => void
+  orderClientsByLastMessage: () => void
 }
 
 export const useClientsStore = create<ClientsStore>((set, get) => ({
@@ -77,6 +80,25 @@ export const useClientsStore = create<ClientsStore>((set, get) => ({
     set((state) => ({
       clients: state.clients.map((client) => {
         if (client.phone_number === phone_number) {
+          if (client.conversations.length === 0) {
+            client.conversations.unshift({
+              id: new Date().getTime(),
+              system: 'whatsapp',
+              seen: false,
+              messages: [message],
+            })
+            client.lastMessage = [
+              {
+                id: message.id,
+                content: message.content,
+                created_at: message.created_at,
+                sender: message.sender,
+                receiver: message.receiver,
+                conversation_id: client.conversations[0]?.id,
+              },
+            ]
+          }
+
           const lastMessage =
             client.conversations[0]?.messages[
               client.conversations[0].messages.length - 1
@@ -95,7 +117,7 @@ export const useClientsStore = create<ClientsStore>((set, get) => ({
               created_at: message.created_at,
               sender: message.sender,
               receiver: message.receiver,
-              conversation_id: client.conversations[0].id,
+              conversation_id: client.conversations[0]?.id,
             },
           ]
         }
@@ -126,4 +148,21 @@ export const useClientsStore = create<ClientsStore>((set, get) => ({
         return client
       }),
     })),
+  orderClientsByLastMessage: () =>
+    set((state) => {
+      const sortedClients = [...state.clients].sort((a, b) => {
+        const lastMessageA = a.lastMessage[0]?.created_at
+        const lastMessageB = b.lastMessage[0]?.created_at
+
+        if (!lastMessageA) return 1
+        if (!lastMessageB) return -1
+
+        const dateA = Date.parse(lastMessageA)
+        const dateB = Date.parse(lastMessageB)
+
+        return dateB - dateA
+      })
+
+      return { clients: sortedClients }
+    }),
 }))
