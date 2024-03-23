@@ -20,6 +20,7 @@ import { useForm } from '@/hooks/useForm'
 import { AlertDialogModal } from '../AlertDialog'
 import { sendMessage } from '@/services/whatsapp'
 import { toast } from 'sonner'
+import { useEffect } from 'react'
 
 interface IChatSelectedProps {
   setSelectedClient: (client: Client | undefined) => void
@@ -42,6 +43,9 @@ export const ChatSelected = ({
 
   const setMessageToClientConversation = useClientsStore(
     (state) => state.setMessageToClientConversation,
+  )
+  const changeSeenConversation = useClientsStore(
+    (state) => state.changeSeenConversation,
   )
 
   const handleSendMessage = async () => {
@@ -68,6 +72,12 @@ export const ChatSelected = ({
       })
     }
   }
+
+  useEffect(() => {
+    if (selectedClient) {
+      changeSeenConversation(selectedClient.id as number, true)
+    }
+  }, [selectedClient, changeSeenConversation])
 
   return (
     <>
