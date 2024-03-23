@@ -84,6 +84,22 @@
           width: 360px;
           cursor: pointer;
           padding: 0.7em;
+          position: relative;
+
+          &[data-new-message='false'] {
+            &::before {
+              content: '';
+              position: absolute;
+              top: 55%;
+              right: 10px;
+              transform: translateY(-50%);
+              width: 5px;
+              height: 5px;
+              border-radius: 50%;
+              background-color: $primary-color;
+              box-shadow: 0 0 10px #fff;
+            }
+          }
 
           &:hover {
             background-color: rgb(245, 245, 245, 0.1);
