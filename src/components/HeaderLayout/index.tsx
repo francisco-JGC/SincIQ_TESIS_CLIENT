@@ -32,6 +32,9 @@ export const HeaderLayout = () => {
   const setMessageToClientConversation = useClientsStore(
     (state) => state.setMessageToClientConversation,
   )
+  const changeSeenConversation = useClientsStore(
+    (state) => state.changeSeenConversation,
+  )
 
   const handleSearch = (e: any) => {
     setSearch(e.value)
@@ -42,10 +45,12 @@ export const HeaderLayout = () => {
       setMessageToClientConversation(message.client.phone_number, {
         id: new Date().getTime(),
         content: message.message,
-        created_at: new Date().toISOString(),
+        created_at: message.created_at,
         sender: message.message_by,
         receiver: message.client.phone_number,
       })
+
+      changeSeenConversation(message.client.id as unknown as number, false)
     }
 
     if (socket) {
@@ -60,7 +65,7 @@ export const HeaderLayout = () => {
         socket.off('server:sending-message', handleMessages)
       }
     }
-  }, [setMessageToClientConversation, socket])
+  }, [setMessageToClientConversation, socket, changeSeenConversation])
 
   useEffect(() => {
     toast.dismiss()
@@ -79,7 +84,7 @@ export const HeaderLayout = () => {
         }
       })
     }
-  }, [])
+  }, [clients, addClients, searchClient])
 
   return (
     <section className="header-container">
@@ -112,7 +117,15 @@ export const HeaderLayout = () => {
             width: '800px',
           }}
         >
-          <div className="user__chat" data-count="9" data-active="true">
+          <div
+            className="user__chat"
+            data-active="true"
+            data-count={
+              clients.filter(
+                (client) => client.conversations[0]?.seen === false,
+              ).length
+            }
+          >
             <Image
               src={chatIcon}
               typeof="svg"
