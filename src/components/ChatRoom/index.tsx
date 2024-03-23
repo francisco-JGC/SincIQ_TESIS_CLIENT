@@ -116,6 +116,7 @@ export default function ChatRoom() {
                 key={index}
                 className="chat-room__contacts__chats__chat__item"
                 onClick={() => setSelectedClient(client)}
+                data-new-message={client.conversations[0]?.seen}
               >
                 <Image
                   src={client.image_url || icon_user}
