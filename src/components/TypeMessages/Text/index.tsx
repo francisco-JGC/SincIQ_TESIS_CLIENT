@@ -15,7 +15,7 @@ export const TextMessage = ({ message, id }: TextMessageProps) => {
       id={id}
     >
       <div className="text__message__date" data-sender={message.sender}>
-        <small>{momentDate(message.created_at)}</small>
+        {message.created_at && <small>{momentDate(message.created_at)}</small>}
       </div>
       <div className="text__message" data-sender={message.sender}>
         <pre data-sender={message.sender}>{message.content}</pre>
