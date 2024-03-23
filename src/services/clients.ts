@@ -44,3 +44,22 @@ export const clearConversationFromClient = async (client_id: number) => {
   const data = await response.json()
   return data
 }
+
+export const setSeenConversationByIdClient = async (
+  client_id: number,
+  state: boolean,
+) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/clients/seen-conversation`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ client_id, state }),
+    },
+  )
+
+  const data = await response.json()
+  return data
+}
