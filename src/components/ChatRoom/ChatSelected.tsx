@@ -21,6 +21,7 @@ import { AlertDialogModal } from '../AlertDialog'
 import { sendMessage } from '@/services/whatsapp'
 import { toast } from 'sonner'
 import { useEffect } from 'react'
+import { setSeenConversationByIdClient } from '@/services/clients'
 
 interface IChatSelectedProps {
   setSelectedClient: (client: Client | undefined) => void
@@ -76,8 +77,13 @@ export const ChatSelected = ({
   useEffect(() => {
     if (selectedClient) {
       changeSeenConversation(selectedClient.id as number, true)
+      setSeenConversationByIdClient(selectedClient.id as number, true).then(
+        () => {
+          console.log('Visto')
+        },
+      )
     }
-  }, [selectedClient, changeSeenConversation])
+  }, [changeSeenConversation, selectedClient])
 
   return (
     <>
