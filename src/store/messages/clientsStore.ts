@@ -83,7 +83,7 @@ export const useClientsStore = create<ClientsStore>((set, get) => ({
           if (client.conversations.length === 0) {
             client.conversations.unshift({
               id: new Date().getTime(),
-              system: 'whatsapp',
+              system: 'system',
               seen: false,
               messages: [message],
             })
