@@ -21,6 +21,7 @@ interface CInputProps {
   inputStyle?: React.CSSProperties
   autocomplete?: 'on' | 'off'
   onClickIcon?: () => void
+  autoFocus?: boolean
 }
 export const CInput = ({
   value,
@@ -42,6 +43,7 @@ export const CInput = ({
   inputStyle,
   autocomplete,
   onClickIcon,
+  autoFocus,
 }: CInputProps) => {
   return (
     <div className={`c-input ${className}`}>
@@ -80,6 +82,7 @@ export const CInput = ({
           max={max}
           onFocus={onFocus}
           autoComplete={autocomplete}
+          autoFocus={autoFocus}
         />
       </div>
     </div>
