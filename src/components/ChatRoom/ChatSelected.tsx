@@ -65,7 +65,6 @@ export const ChatSelected = ({
     const response = await sendMessage(
       selectedClient?.phone_number as string,
       values.message,
-      'text',
     )
 
     if (!response.status) {
@@ -166,7 +165,7 @@ export const ChatSelected = ({
           icon={send_message}
           autocomplete="off"
           onClickIcon={handleSendMessage}
-          autoFocus={true}
+          autoFocus
           required
         />
       </form>
