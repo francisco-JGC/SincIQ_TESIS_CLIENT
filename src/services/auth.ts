@@ -21,7 +21,6 @@ export const login = async ({ email, password }: ILogin) => {
 }
 
 export const register = async ({ username, email, password }: ILogin) => {
-  console.log('NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL)
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
     {
