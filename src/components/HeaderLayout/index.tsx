@@ -130,7 +130,11 @@ export const HeaderLayout = () => {
         >
           <div
             className="user__chat"
-            data-active="true"
+            data-active={
+              clients.filter(
+                (client) => client.conversations[0]?.seen === false,
+              ).length > 0
+            }
             data-count={
               clients.filter(
                 (client) => client.conversations[0]?.seen === false,
