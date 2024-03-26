@@ -1,8 +1,4 @@
-export const sendMessage = async (
-  phone: string,
-  message: string,
-  type: 'text' | 'image',
-) => {
+export const sendMessage = async (phone: string, message: string) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/whatsapp/send_message`,
     {
@@ -10,7 +6,7 @@ export const sendMessage = async (
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ phone, message, type }),
+      body: JSON.stringify({ phone, message }),
     },
   )
 
