@@ -8,8 +8,7 @@ interface CInputProps {
   className?: string
   type?: string
   label?: string
-  label_span?: string
-  label_span_style?: React.CSSProperties
+  label_style?: React.CSSProperties
   required?: boolean
   name: string
   id?: string
@@ -37,8 +36,7 @@ export const CInput = ({
   dissabled,
   min,
   max,
-  label_span,
-  label_span_style,
+  label_style,
   onFocus,
   inputStyle,
   autocomplete,
@@ -48,18 +46,12 @@ export const CInput = ({
   return (
     <div className={`c-input ${className}`}>
       {label && (
-        <label className={`${required ? 'required' : ''}`} htmlFor={id}>
-          {label}{' '}
-          {label_span && (
-            <span
-              style={{
-                fontWeight: 'bold',
-                ...label_span_style,
-              }}
-            >
-              - {label_span}
-            </span>
-          )}
+        <label
+          className={`${required ? 'required' : ''}`}
+          htmlFor={id}
+          style={label_style}
+        >
+          {label}
         </label>
       )}
 
