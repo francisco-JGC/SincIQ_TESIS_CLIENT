@@ -8,6 +8,8 @@ import { useForm } from '@/hooks/useForm'
 import dollarIcon from '@/assets/icons/dollar.svg'
 import { useRef, useState } from 'react'
 import { RenderUploadImage } from './components/RenderUploadImage'
+import { AlertDialogModal } from '@/components/AlertDialog'
+import { CButon } from '@/components/CButon'
 
 const INPUTS_STYLES: React.CSSProperties = {
   background: '#1a1527',
@@ -18,9 +20,11 @@ export default function CreateProductPage() {
   const initialValues = {
     name: '',
     category: '',
-    price: '',
+    price: 0,
     gender: '',
     description: '',
+    visibility: true,
+    state: '',
   }
 
   const [image1, setImage1] = useState<File | null>(null)
@@ -47,7 +51,13 @@ export default function CreateProductPage() {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let { name, checked } = e.target
+
+    handleInputChange({ name, value: checked })
+  }
+
+  const handleSubmit = () => {
     console.log(values)
     console.log(image1)
     console.log(image2)
@@ -55,7 +65,11 @@ export default function CreateProductPage() {
   }
 
   return (
-    <LayoutPage title="Nuevo producto" rollBack>
+    <LayoutPage
+      title="Nuevo producto"
+      rollBack
+      ActionComponent={() => <ActionComponent handleSubmit={handleSubmit} />}
+    >
       <div className="grid grid-cols-1 gap-4 w-full">
         <Content
           title="Información básico"
@@ -93,6 +107,9 @@ export default function CreateProductPage() {
                 style={INPUTS_STYLES}
                 className="p-2 mt-2 w-full bg-gray-800 rounded border border-gray-700 focus:outline-none focus:border-blue-500 transition duration-500 ease-in-out"
               >
+                <option value="" disabled>
+                  Seleccione
+                </option>
                 <option value="Tecnología">Tecnología</option>
                 <option value="Hogar">Hogar</option>
                 <option value="Moda">Moda</option>
@@ -120,6 +137,9 @@ export default function CreateProductPage() {
                 style={INPUTS_STYLES}
                 className="p-2 mt-2 w-full bg-gray-800 rounded border border-gray-700 focus:outline-none focus:border-blue-500 transition duration-500 ease-in-out"
               >
+                <option value="" disabled>
+                  Seleccione
+                </option>
                 <option value="Femenino">Femenino</option>
                 <option value="Masculino">Masculino</option>
                 <option value="Ambos">Ambos</option>
@@ -156,8 +176,11 @@ export default function CreateProductPage() {
               id="description"
               className="w-full h-[100px] p-2 mt-2 bg-gray-800 rounded border border-gray-700 focus:outline-none focus:border-[#5918df] transition duration-300 ease-in-out resize-none"
               style={INPUTS_STYLES}
-              onChange={handleInputChange}
+              onChange={(e) => {
+                handleInputChange(e.target)
+              }}
               placeholder="Detalla las características del producto"
+              value={values.description}
             />
           </div>
         </Content>
@@ -189,7 +212,62 @@ export default function CreateProductPage() {
             handleImageChange={handleImageChange}
           />
         </Content>
+
+        <Content
+          title="Visibilidad del producto"
+          className="flex flex-col gap-6 w-full"
+        >
+          <div className="flex items-center gap-4">
+            <input
+              type="checkbox"
+              name="visibility"
+              id="visibility"
+              onChange={handleCheckedChange}
+              checked={values.visibility}
+              className="w-5 h-5 bg-gray-800 rounded focus:outline-none border border-gray-700 transition duration-500 ease-in-out"
+            />
+            <label htmlFor="visibility" className="text-gray-400">
+              ¿Deseas que el producto sea visible en el catalogo de la tienda?
+            </label>
+          </div>
+
+          <div className="w-[300px]">
+            <label
+              htmlFor="state"
+              className="block text-gray-400 font-bold mt-2"
+            >
+              Estado del producto <span className="text-red-500">*</span>
+            </label>
+            <select
+              name="state"
+              id="state"
+              onChange={handleSelectChange}
+              value={values.state}
+              style={INPUTS_STYLES}
+              className="p-2 mt-2 w-full bg-gray-800 rounded border border-gray-700 focus:outline-none focus:border-blue-500 transition duration-500 ease-in-out"
+            >
+              <option value="" disabled>
+                Seleccione
+              </option>
+              <option value="Nuevo">Nuevo</option>
+              <option value="Usado - Semi nuevo">Usado - Semi nuevo</option>
+              <option value="Usado - Buen estado">Usado - Buen estado</option>
+              <option value="Usado - aceptable">Usado - aceptable</option>
+            </select>
+          </div>
+        </Content>
       </div>
     </LayoutPage>
   )
 }
+
+const ActionComponent = ({ handleSubmit }: { handleSubmit: () => void }) => (
+  <AlertDialogModal
+    nameButton="Crear producto"
+    title="¿Estás seguro de crear este producto?"
+    description="Asegúrate de que la información sea correcta antes de crear el producto."
+    onConfirm={handleSubmit}
+  >
+    <CButon>Crear producto</CButon>
+  </AlertDialogModal>
+)
