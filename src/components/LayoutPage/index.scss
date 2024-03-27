@@ -49,6 +49,13 @@
       }
     }
   }
+
+  .layout-page__action {
+    position: fixed;
+    bottom: 0;
+    right: 1em;
+    padding: 1em;
+  }
 }
 
 @include mobile {
