@@ -6,10 +6,8 @@ import { Content } from '@/components/Content'
 import { CInput } from '@/components/CInput'
 import { useForm } from '@/hooks/useForm'
 import dollarIcon from '@/assets/icons/dollar.svg'
-import galeryIcon from '@/assets/icons/galery.svg'
-import xIcon from '@/assets/icons/x.svg'
-import Image from 'next/image'
 import { useRef, useState } from 'react'
+import { RenderUploadImage } from './components/RenderUploadImage'
 
 const INPUTS_STYLES: React.CSSProperties = {
   background: '#1a1527',
@@ -21,7 +19,8 @@ export default function CreateProductPage() {
     name: '',
     category: '',
     price: '',
-    stock: '',
+    gender: '',
+    description: '',
   }
 
   const [image1, setImage1] = useState<File | null>(null)
@@ -43,10 +42,16 @@ export default function CreateProductPage() {
     e: React.ChangeEvent<HTMLInputElement>,
     setImage: any,
   ) => {
-    console.log(e.target.files)
     if (e.target.files && e.target.files.length > 0) {
       setImage(e.target.files[0])
     }
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(values)
+    console.log(image1)
+    console.log(image2)
+    console.log(image3)
   }
 
   return (
@@ -162,95 +167,27 @@ export default function CreateProductPage() {
           className="grid grid-cols-3 gap-4 w-full"
           colorTitle="yellow"
         >
-          <div
-            className="image1 w-full h-[300px] bg-gray-800 rounded flex justify-center items-center"
-            onClick={() => handleSelectImage(refImag1)}
-            style={{
-              backgroundImage: image1
-                ? `url(${URL.createObjectURL(image1)})`
-                : '',
-            }}
-          >
-            {image1 && (
-              <div
-                className="absolute top-2 right-2 w-[30px] h-[30px] p-1 rounded-full cursor-pointer flex items-center justify-center bg-gray-300"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setImage1(null)
-                }}
-              >
-                <Image src={xIcon} alt="galery" />
-              </div>
-            )}
-            <input
-              type="file"
-              ref={refImag1}
-              onChange={(e) => handleImageChange(e, setImage1)}
-              className="hidden"
-              accept=".jpg, .jpeg, .png"
-            />
-            {!image1 && <Image src={galeryIcon} alt="galery" />}
-          </div>
-
-          <div
-            className="image2 w-full h-[300px] bg-gray-800 rounded flex justify-center items-center"
-            onClick={() => handleSelectImage(refImag2)}
-            style={{
-              backgroundImage: image2
-                ? `url(${URL.createObjectURL(image2)})`
-                : '',
-            }}
-          >
-            {image2 && (
-              <div
-                className="absolute top-2 right-2 w-[30px] h-[30px] p-1 rounded-full cursor-pointer flex items-center justify-center bg-gray-300"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setImage2(null)
-                }}
-              >
-                <Image src={xIcon} alt="galery" />
-              </div>
-            )}
-            <input
-              type="file"
-              ref={refImag2}
-              onChange={(e) => handleImageChange(e, setImage2)}
-              className="hidden"
-              accept=".jpg, .jpeg, .png"
-            />
-            {!image2 && <Image src={galeryIcon} alt="galery" />}
-          </div>
-
-          <div
-            className="image3 w-full h-[300px] bg-gray-800 rounded flex justify-center items-center"
-            onClick={() => handleSelectImage(refImag3)}
-            style={{
-              backgroundImage: image3
-                ? `url(${URL.createObjectURL(image3 as any)})`
-                : '',
-            }}
-          >
-            {image3 && (
-              <div
-                className="absolute top-2 right-2 w-[30px] h-[30px] p-1 rounded-full cursor-pointer flex items-center justify-center bg-gray-300"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setImage3(null)
-                }}
-              >
-                <Image src={xIcon} alt="galery" />
-              </div>
-            )}
-            <input
-              type="file"
-              ref={refImag3}
-              onChange={(e) => handleImageChange(e, setImage3)}
-              className="hidden"
-              accept=".jpg, .jpeg, .png"
-            />
-            {!image2 && <Image src={galeryIcon} alt="galery" />}
-          </div>
+          <RenderUploadImage
+            image={image1}
+            setImage={setImage1}
+            handleSelectImage={() => handleSelectImage(refImag1)}
+            refImag={refImag1}
+            handleImageChange={handleImageChange}
+          />
+          <RenderUploadImage
+            image={image2}
+            setImage={setImage2}
+            handleSelectImage={() => handleSelectImage(refImag2)}
+            refImag={refImag2}
+            handleImageChange={handleImageChange}
+          />
+          <RenderUploadImage
+            image={image3}
+            setImage={setImage3}
+            handleSelectImage={() => handleSelectImage(refImag3)}
+            refImag={refImag3}
+            handleImageChange={handleImageChange}
+          />
         </Content>
       </div>
     </LayoutPage>
