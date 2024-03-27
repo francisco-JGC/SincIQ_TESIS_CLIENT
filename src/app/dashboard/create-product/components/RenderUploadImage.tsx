@@ -50,7 +50,12 @@ export const RenderUploadImage = ({
         className="hidden"
         accept=".jpg, .jpeg, .png"
       />
-      {!image && <Image src={galeryIcon} alt="galery" />}
+      {!image && (
+        <div className="flex flex-col items-center gap-2">
+          <Image src={galeryIcon} alt="galery" />
+          <span className="text-gray-400 font-bold">Seleccione</span>
+        </div>
+      )}
     </div>
   )
 }
