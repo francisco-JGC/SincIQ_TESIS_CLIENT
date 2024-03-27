@@ -17,7 +17,7 @@ export const Content = ({
   style,
 }: IContentProps) => {
   return (
-    <div className={`content-content ${className}`} style={style}>
+    <div className={`content-content`} style={style}>
       <div className="content__title">
         <h4
           className={`content__title__text ${colorTitle}`}
@@ -27,7 +27,7 @@ export const Content = ({
           {title}
         </h4>
       </div>
-      <div className="content__body">{children}</div>
+      <div className={`content__body ${className}`}>{children}</div>
     </div>
   )
 }
