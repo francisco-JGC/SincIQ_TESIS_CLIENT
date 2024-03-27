@@ -12,6 +12,8 @@ import { AlertDialogModal } from '@/components/AlertDialog'
 import { CButon } from '@/components/CButon'
 import { Category, useCategoriesStore } from '@/store/categories/categories'
 import { getCategories } from '@/services/category'
+import { Modal } from '@/components/Modal'
+import { NewCategory } from './components/NewCategory'
 
 const INPUTS_STYLES: React.CSSProperties = {
   background: '#1a1527',
@@ -135,6 +137,17 @@ export default function CreateProductPage() {
                   </option>
                 ))}
               </select>
+              <Modal
+                title="Nueva categoría de producto"
+                nameButton="Crear categoría"
+                description="Puedes crear una nueva categoría para el producto."
+                Component={() => <NewCategory />}
+                buttonStyle={{
+                  color: '#5918df',
+                  cursor: 'pointer',
+                  margin: '1em 0 0 0',
+                }}
+              />
             </div>
 
             <div className="col-span-1">
