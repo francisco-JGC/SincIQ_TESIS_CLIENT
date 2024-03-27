@@ -12,19 +12,19 @@ export const NAVIGATION_ITEMS = [
   },
   {
     title: 'Estadísticas de ventas',
-    href: '/statistics-sales',
+    href: '/dashboard/statistics-sales',
     icon: chartIcon,
     segment: 'statistics-sales',
   },
   {
     title: 'Mis productos',
-    href: '/products',
+    href: '/dashboard/products',
     icon: productIcon,
     segment: 'products',
   },
   {
     title: 'Crear producto',
-    href: '/create-product',
+    href: '/dashboard/create-product',
     icon: plus_circleIcon,
     segment: 'create-product',
   },
