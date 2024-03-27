@@ -217,20 +217,6 @@ export default function CreateProductPage() {
           title="Visibilidad del producto"
           className="flex flex-col gap-6 w-full"
         >
-          <div className="flex items-center gap-4">
-            <input
-              type="checkbox"
-              name="visibility"
-              id="visibility"
-              onChange={handleCheckedChange}
-              checked={values.visibility}
-              className="w-5 h-5 bg-gray-800 rounded focus:outline-none border border-gray-700 transition duration-500 ease-in-out"
-            />
-            <label htmlFor="visibility" className="text-gray-400">
-              ¿Deseas que el producto sea visible en el catalogo de la tienda?
-            </label>
-          </div>
-
           <div className="w-[300px]">
             <label
               htmlFor="state"
@@ -254,6 +240,19 @@ export default function CreateProductPage() {
               <option value="Usado - Buen estado">Usado - Buen estado</option>
               <option value="Usado - aceptable">Usado - aceptable</option>
             </select>
+          </div>
+          <div className="flex items-center gap-4">
+            <input
+              type="checkbox"
+              name="visibility"
+              id="visibility"
+              onChange={handleCheckedChange}
+              checked={values.visibility}
+              className="w-5 h-5 bg-gray-800 rounded focus:outline-none border border-gray-700 transition duration-500 ease-in-out"
+            />
+            <label htmlFor="visibility" className="text-gray-400">
+              ¿Deseas que el producto sea visible en el catalogo de la tienda?
+            </label>
           </div>
         </Content>
       </div>
