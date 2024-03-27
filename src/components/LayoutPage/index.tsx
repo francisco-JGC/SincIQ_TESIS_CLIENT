@@ -10,6 +10,7 @@ interface LayoutPageProps {
   title: string
   rollBack?: boolean
   subTitle?: string
+  ActionComponent?: React.FC
 }
 
 export const LayoutPage = ({
@@ -18,6 +19,7 @@ export const LayoutPage = ({
   title,
   rollBack,
   subTitle,
+  ActionComponent,
 }: LayoutPageProps) => {
   const router = useRouter()
 
@@ -43,7 +45,19 @@ export const LayoutPage = ({
           <h4 className="layout-page__header__right__title">{subTitle}</h4>
         </div>
       </div>
-      <div className="layout-page__content">{children}</div>
+      <div
+        className="layout-page__content"
+        style={{
+          marginBottom: ActionComponent ? '3.5rem' : '0',
+        }}
+      >
+        {children}
+      </div>
+      {ActionComponent && (
+        <div className="layout-page__action">
+          <ActionComponent />
+        </div>
+      )}
     </section>
   )
 }
