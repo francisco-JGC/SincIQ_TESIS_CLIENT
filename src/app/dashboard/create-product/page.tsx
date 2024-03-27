@@ -6,10 +6,12 @@ import { Content } from '@/components/Content'
 import { CInput } from '@/components/CInput'
 import { useForm } from '@/hooks/useForm'
 import dollarIcon from '@/assets/icons/dollar.svg'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { RenderUploadImage } from './components/RenderUploadImage'
 import { AlertDialogModal } from '@/components/AlertDialog'
 import { CButon } from '@/components/CButon'
+import { Category, useCategoriesStore } from '@/store/categories/categories'
+import { getCategories } from '@/services/category'
 
 const INPUTS_STYLES: React.CSSProperties = {
   background: '#1a1527',
@@ -38,6 +40,9 @@ export default function CreateProductPage() {
   const refImag2 = useRef<HTMLInputElement | null>(null)
   const refImag3 = useRef<HTMLInputElement | null>(null)
 
+  const categoriesStore = useCategoriesStore((state) => state.categories)
+  const addCategory = useCategoriesStore((state) => state.addCategory)
+
   const handleSelectImage = (ref: React.RefObject<HTMLInputElement>) => {
     ref.current?.click()
   }
@@ -63,6 +68,16 @@ export default function CreateProductPage() {
     console.log(image2)
     console.log(image3)
   }
+
+  useEffect(() => {
+    getCategories().then((data) => {
+      if (data.success) {
+        data.data.forEach((category: Category) => {
+          addCategory(category)
+        })
+      }
+    })
+  }, [])
 
   return (
     <LayoutPage
@@ -110,15 +125,15 @@ export default function CreateProductPage() {
                 <option value="" disabled>
                   Seleccione
                 </option>
-                <option value="Tecnología">Tecnología</option>
-                <option value="Hogar">Hogar</option>
-                <option value="Moda">Moda</option>
-                <option value="Deportes">Deportes</option>
-                <option value="Mascotas">Mascotas</option>
-                <option value="Juguetes">Juguetes</option>
-                <option value="Libros">Libros</option>
-                <option value="Salud y belleza">Salud y belleza</option>
-                <option value="Joyería">Joyería</option>
+                {categoriesStore.map((category) => (
+                  <option
+                    key={category.id}
+                    value={category.name}
+                    selected={category.name === values.category}
+                  >
+                    {category.name}
+                  </option>
+                ))}
               </select>
             </div>
 
