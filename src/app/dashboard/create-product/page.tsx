@@ -13,7 +13,9 @@ import { CButon } from '@/components/CButon'
 import { Category, useCategoriesStore } from '@/store/categories/categories'
 import { getCategories } from '@/services/category'
 import { Modal } from '@/components/Modal'
+import plus_circleIcon from '@/assets/icons/plus_circle.svg'
 import { NewCategory } from './components/NewCategory'
+import { toast } from 'sonner'
 
 const INPUTS_STYLES: React.CSSProperties = {
   background: '#1a1527',
@@ -42,6 +44,8 @@ export default function CreateProductPage() {
   const refImag2 = useRef<HTMLInputElement | null>(null)
   const refImag3 = useRef<HTMLInputElement | null>(null)
 
+  const [loading, setLoading] = useState(false)
+
   const categoriesStore = useCategoriesStore((state) => state.categories)
   const addCategory = useCategoriesStore((state) => state.addCategory)
 
@@ -65,10 +69,16 @@ export default function CreateProductPage() {
   }
 
   const handleSubmit = () => {
-    console.log(values)
-    console.log(image1)
-    console.log(image2)
-    console.log(image3)
+    if (!values.name || !values.category || !values.price || !values) {
+      return toast('Todos los campos son requeridos')
+    }
+
+    // debes subir almenos 1 imagen
+    if (!image1) {
+      return toast('Debes subir almenos una imagen')
+    }
+
+    setLoading(true)
   }
 
   useEffect(() => {
@@ -85,7 +95,9 @@ export default function CreateProductPage() {
     <LayoutPage
       title="Nuevo producto"
       rollBack
-      ActionComponent={() => <ActionComponent handleSubmit={handleSubmit} />}
+      ActionComponent={() => (
+        <ActionComponent handleSubmit={handleSubmit} loading={loading} />
+      )}
     >
       <div className="grid grid-cols-1 gap-4 w-full">
         <Content
@@ -288,13 +300,25 @@ export default function CreateProductPage() {
   )
 }
 
-const ActionComponent = ({ handleSubmit }: { handleSubmit: () => void }) => (
+const ActionComponent = ({
+  handleSubmit,
+  loading,
+}: {
+  handleSubmit: () => void
+  loading: boolean
+}) => (
   <AlertDialogModal
     nameButton="Crear producto"
     title="¿Estás seguro de crear este producto?"
     description="Asegúrate de que la información sea correcta antes de crear el producto."
     onConfirm={handleSubmit}
   >
-    <CButon>Crear producto</CButon>
+    <CButon
+      icon={plus_circleIcon}
+      poisition_icon="right"
+      loading_mode={loading}
+    >
+      Crear producto
+    </CButon>
   </AlertDialogModal>
 )
