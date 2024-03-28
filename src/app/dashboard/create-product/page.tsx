@@ -291,7 +291,7 @@ export default function CreateProductPage() {
               className="w-5 h-5 bg-gray-800 rounded focus:outline-none border border-gray-700 transition duration-500 ease-in-out"
             />
             <label htmlFor="visibility" className="text-gray-400">
-              ¿Deseas que el producto sea visible en el catalogo de la tienda?
+              ¿Deseas que el producto sea visible en el catálogo?
             </label>
           </div>
         </Content>

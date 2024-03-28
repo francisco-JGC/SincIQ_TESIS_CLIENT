@@ -6,7 +6,6 @@ import interrogationCircle from '@/assets/icons/interrogation_circle.svg'
 import Link from 'next/link'
 import Image from 'next/image'
 import { HeaderLayout } from '@/components/HeaderLayout'
-import { Toaster } from 'sonner'
 import { SocketProvider } from '@/context/SocketProvider'
 
 const poppins = Poppins({
@@ -66,8 +65,6 @@ export default function RootLayout({
             </div>
           </SocketProvider>
         </main>
-
-        <Toaster />
       </body>
     </html>
   )
