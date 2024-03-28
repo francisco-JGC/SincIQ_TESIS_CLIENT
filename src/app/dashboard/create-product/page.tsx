@@ -81,8 +81,6 @@ export default function CreateProductPage() {
     // } else {
     //   toast.error('Error al registrar el producto')
     // }
-
-    console.log('values', values)
   }
 
   useEffect(() => {

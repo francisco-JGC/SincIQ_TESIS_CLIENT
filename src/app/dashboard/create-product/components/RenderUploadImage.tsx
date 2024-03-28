@@ -40,12 +40,8 @@ export const RenderUploadImage = ({
       .then((response) => {
         setLoading(false)
 
-        console.log('response', response)
-
         if (response) {
           handleInputChange({ name: targetName, value: response } as any)
-
-          console.log('image', refImage)
         } else {
           toast.error('Error al subir la imagen', {
             description: 'Intente de nuevo',
