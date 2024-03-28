@@ -2,7 +2,7 @@ import Image from 'next/image'
 import xIcon from '@/assets/icons/x.svg'
 import galeryIcon from '@/assets/icons/galery.svg'
 import { useEffect, useState } from 'react'
-import { uploadProductImage, deleteProductImage } from '@/services/firebase'
+import { uploadProductImage, deleteImage } from '@/services/firebase'
 import { toast } from 'sonner'
 import loadingIcon from '@/assets/icons-animated/tube-spinner.svg'
 
@@ -62,7 +62,7 @@ export const RenderUploadImage = ({
   const handleRemoveImage = async () => {
     setLoading(true)
 
-    deleteProductImage(url)
+    deleteImage(url)
       .then((response) => {
         setLoading(false)
 
