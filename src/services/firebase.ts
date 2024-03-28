@@ -6,10 +6,10 @@ import {
 } from 'firebase/storage'
 import { storage } from '@/config/firebase.config'
 
-export const uploadProductImage = async (file: File) => {
+export const uploadImage = async (file: File, storageName: string) => {
   try {
     const nameFille = `${Date.now()}-${file.name}`
-    const storageRef = ref(storage, `products/${nameFille}`)
+    const storageRef = ref(storage, `${storageName}/${nameFille}`)
 
     const snapshot = await uploadBytes(storageRef, file)
 
@@ -20,15 +20,15 @@ export const uploadProductImage = async (file: File) => {
   }
 }
 
-export const deleteProductImage = async (url: string) => {
-  console.log('url', url)
+export const deleteImage = async (url: string) => {
   try {
     const imageRef = ref(storage, url)
-    const response = await deleteObject(imageRef)
-    console.log('response', response)
-
+    await deleteObject(imageRef)
     return true
   } catch (error) {
     return false
   }
 }
+
+export const uploadProductImage = async (file: File) =>
+  await uploadImage(file, 'products')
