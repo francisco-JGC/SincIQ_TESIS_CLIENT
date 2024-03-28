@@ -16,6 +16,7 @@ import { Modal } from '@/components/Modal'
 import plus_circleIcon from '@/assets/icons/plus_circle.svg'
 import { NewCategory } from './components/NewCategory'
 import { toast } from 'sonner'
+import { addProduct } from '@/services/product'
 
 const INPUTS_STYLES: React.CSSProperties = {
   background: '#1a1527',
@@ -31,6 +32,9 @@ export default function CreateProductPage() {
     description: '',
     visibility: true,
     state: '',
+    uploadImg1: '',
+    uploadImg2: '',
+    uploadImg3: '',
   }
 
   const [image1, setImage1] = useState<File | null>(null)
@@ -68,17 +72,17 @@ export default function CreateProductPage() {
     handleInputChange({ name, value: checked })
   }
 
-  const handleSubmit = () => {
-    if (!values.name || !values.category || !values.price || !values) {
-      return toast('Todos los campos son requeridos')
-    }
+  const handleSubmit = async () => {
+    // setLoading(true)
+    // const response = await addProduct()
+    // setLoading(false)
+    // if (response.success) {
+    //   toast.success('Producto registrado en el catálogo')
+    // } else {
+    //   toast.error('Error al registrar el producto')
+    // }
 
-    // debes subir almenos 1 imagen
-    if (!image1) {
-      return toast('Debes subir almenos una imagen')
-    }
-
-    setLoading(true)
+    console.log('values', values)
   }
 
   useEffect(() => {
@@ -234,22 +238,31 @@ export default function CreateProductPage() {
             image={image1}
             setImage={setImage1}
             handleSelectImage={() => handleSelectImage(refImag1)}
-            refImag={refImag1}
+            refImage={refImag1}
             handleImageChange={handleImageChange}
+            handleInputChange={handleInputChange}
+            targetName="uploadImg1"
+            url={values.uploadImg1}
           />
           <RenderUploadImage
             image={image2}
             setImage={setImage2}
             handleSelectImage={() => handleSelectImage(refImag2)}
-            refImag={refImag2}
+            refImage={refImag2}
             handleImageChange={handleImageChange}
+            handleInputChange={handleInputChange}
+            targetName="uploadImg2"
+            url={values.uploadImg2}
           />
           <RenderUploadImage
             image={image3}
             setImage={setImage3}
             handleSelectImage={() => handleSelectImage(refImag3)}
-            refImag={refImag3}
+            refImage={refImag3}
             handleImageChange={handleImageChange}
+            handleInputChange={handleInputChange}
+            targetName="uploadImg3"
+            url={values.uploadImg3}
           />
         </Content>
 
