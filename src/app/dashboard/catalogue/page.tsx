@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import loadingIcon from '@/assets/icons-animated/tube-spinner.svg'
 
 interface ICatalogue {
-  id: string
+  id: number
   name: string
   description?: string
   banner?: string
@@ -37,7 +37,7 @@ export default function CataloguePage() {
       <section className=" w-full flex justify-center items-center flex-col">
         <div className="h-[250px] w-full flex">
           <Image
-            src=""
+            src={catalogue.banner || ''}
             alt="Banner"
             className="w-full h-full object-cover rounded bg-gray-300"
             width={100}
