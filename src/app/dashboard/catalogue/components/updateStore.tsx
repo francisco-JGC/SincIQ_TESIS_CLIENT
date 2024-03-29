@@ -1,17 +1,25 @@
+'use client'
 import { CInput } from '@/components/CInput'
 import pencilIcon from '@/assets/icons/pencil.svg'
 import { useForm } from '@/hooks/useForm'
 import { CButon } from '@/components/CButon'
 import { useRef, useState } from 'react'
 import { RenderUploadImage } from '../../create-product/components/RenderUploadImage'
+import { createOrUpdateCatalogue } from '@/services/catalogue'
+import { toast } from 'sonner'
 
-export const UpdateStore = () => {
+interface ICatalogue {
+  state: any
+  setState: any
+}
+export const UpdateStore = ({ state, setState }: ICatalogue) => {
   const initialValues = {
-    name: '',
-    description: '',
-    banner: '',
+    name: state.name,
+    description: state.description,
+    banner: state.banner,
   }
   const [banner, setBanner] = useState<File | null>(null)
+  const [loading, setLoading] = useState(false)
   const bannerRef = useRef<HTMLInputElement>(null)
 
   const { values, handleInputChange } = useForm(initialValues)
@@ -30,7 +38,16 @@ export const UpdateStore = () => {
   }
 
   const handleSave = async () => {
-    console.log('G  uardado')
+    setLoading(true)
+    const response = await createOrUpdateCatalogue(values)
+
+    if (response.success) {
+      toast('Tienda actualizada correctamente')
+    } else {
+      toast('Ocurrio un error al actualizar la tienda')
+    }
+
+    setLoading(false)
   }
 
   return (
@@ -57,7 +74,6 @@ export const UpdateStore = () => {
           value={values.name}
           onChange={handleInputChange}
           placeholder="Ej: SyncIQ Store"
-          icon={pencilIcon}
         />
 
         <CInput
@@ -66,10 +82,16 @@ export const UpdateStore = () => {
           onChange={handleInputChange}
           placeholder="Ej: La mejor tienda de tecnología"
           className="w-full"
-          icon={pencilIcon}
         />
 
-        <CButon props={{ onClick: handleSave }}>Actualizar catálogo</CButon>
+        <CButon
+          props={{ onClick: handleSave }}
+          loading_mode={loading}
+          icon={pencilIcon}
+          poisition_icon="left"
+        >
+          Actualizar catálogo
+        </CButon>
       </div>
     </section>
   )
