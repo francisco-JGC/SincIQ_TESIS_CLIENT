@@ -18,6 +18,7 @@ interface IRenderUploadImage {
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   targetName: string
   url: string
+  image_style?: React.CSSProperties
 }
 
 export const RenderUploadImage = ({
@@ -29,6 +30,7 @@ export const RenderUploadImage = ({
   handleInputChange,
   targetName,
   url,
+  image_style,
 }: IRenderUploadImage) => {
   const [loading, setLoading] = useState(false)
 
@@ -84,6 +86,7 @@ export const RenderUploadImage = ({
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         position: 'relative',
+        ...image_style,
       }}
     >
       {loading && (
