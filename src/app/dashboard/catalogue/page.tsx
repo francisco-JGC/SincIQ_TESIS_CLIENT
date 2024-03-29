@@ -40,8 +40,8 @@ export default function CataloguePage() {
             src={catalogue.banner || ''}
             alt="Banner"
             className="w-full h-full object-cover rounded bg-gray-300"
-            width={100}
-            height={100}
+            width={1000}
+            height={1000}
           />
         </div>
 
@@ -50,9 +50,11 @@ export default function CataloguePage() {
             <Image src={loadingIcon} alt="Loading" width={40} height={40} />
           ) : (
             <>
-              <h2 className="text-2xl font-bold">{catalogue.name}</h2>
+              <h2 className="text-2xl font-bold">
+                {catalogue.name || 'Sin nombre'}
+              </h2>
               <p className="text-gray-400 text-center">
-                {catalogue.description}
+                {catalogue.description || 'Sin descripción'}
               </p>
             </>
           )}
