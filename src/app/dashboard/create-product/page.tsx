@@ -26,10 +26,12 @@ const INPUTS_STYLES: React.CSSProperties = {
 export default function CreateProductPage() {
   const initialValues = {
     name: '',
-    category: '',
     price: 0,
     gender: '',
     description: '',
+    category: '',
+    discount: 0,
+    quantity: 0,
     visibility: true,
     state: '',
     uploadImg1: '',
@@ -41,7 +43,7 @@ export default function CreateProductPage() {
   const [image2, setImage2] = useState<File | null>(null)
   const [image3, setImage3] = useState<File | null>(null)
 
-  const { values, handleInputChange, handleSelectChange } =
+  const { values, handleInputChange, handleSelectChange, reset } =
     useForm(initialValues)
 
   const refImag1 = useRef<HTMLInputElement | null>(null)
@@ -73,14 +75,53 @@ export default function CreateProductPage() {
   }
 
   const handleSubmit = async () => {
-    // setLoading(true)
-    // const response = await addProduct()
-    // setLoading(false)
-    // if (response.success) {
-    //   toast.success('Producto registrado en el catálogo')
-    // } else {
-    //   toast.error('Error al registrar el producto')
-    // }
+    if (
+      !values.name ||
+      !values.category ||
+      !values.gender ||
+      !values.uploadImg1 ||
+      !values.discount ||
+      !values.state
+    ) {
+      toast.error('Error al crear el producto', {
+        description: 'Todos los campos son obligatorios.',
+      })
+      return
+    }
+
+    if (
+      values.price <= 0 ||
+      values.quantity <= 0 ||
+      values.discount < 0 ||
+      values.discount > 100
+    ) {
+      toast.error('Error al crear el producto', {
+        description:
+          'El precio, la cantidad y el descuento deben ser mayores a 0.',
+      })
+      return
+    }
+
+    setLoading(true)
+
+    const response = await addProduct(values)
+
+    if (response.success) {
+      toast.success('Producto creado correctamente', {
+        description: 'El producto se ha creado correctamente.',
+      })
+
+      reset()
+      setImage1(null)
+      setImage2(null)
+      setImage3(null)
+    } else {
+      toast.error('Error al crear el producto', {
+        description: response.message,
+      })
+    }
+
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -184,17 +225,49 @@ export default function CreateProductPage() {
                 </option>
                 <option value="Femenino">Femenino</option>
                 <option value="Masculino">Masculino</option>
-                <option value="Ambos">Ambos</option>
+                <option value="Unisex">Unisex</option>
               </select>
             </div>
 
             <CInput
-              label="Precio"
+              label="Precio unitario"
               onChange={handleInputChange}
               type="number"
               name="price"
               value={values.price}
               icon={dollarIcon}
+              inputStyle={INPUTS_STYLES}
+              label_style={{
+                color: '#9ca3af',
+                fontWeight: '700',
+                fontSize: '1.1em',
+              }}
+              required
+              className="col-span-1"
+            />
+
+            <CInput
+              label="Descuento"
+              onChange={handleInputChange}
+              type="number"
+              name="discount"
+              value={values.discount}
+              icon={dollarIcon}
+              inputStyle={INPUTS_STYLES}
+              label_style={{
+                color: '#9ca3af',
+                fontWeight: '700',
+                fontSize: '1.1em',
+              }}
+              className="col-span-1"
+            />
+
+            <CInput
+              label="Cantidad"
+              onChange={handleInputChange}
+              type="number"
+              name="quantity"
+              value={values.quantity}
               inputStyle={INPUTS_STYLES}
               label_style={{
                 color: '#9ca3af',
