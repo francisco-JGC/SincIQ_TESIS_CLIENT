@@ -17,10 +17,10 @@ export const NAVIGATION_ITEMS = [
     segment: 'statistics-sales',
   },
   {
-    title: 'Mis productos',
-    href: '/dashboard/products',
+    title: 'Catálogo',
+    href: '/dashboard/catalogue',
     icon: productIcon,
-    segment: 'products',
+    segment: 'catalogue',
   },
   {
     title: 'Crear producto',
