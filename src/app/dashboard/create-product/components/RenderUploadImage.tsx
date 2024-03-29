@@ -76,7 +76,7 @@ export const RenderUploadImage = ({
 
   return (
     <div
-      className="cursor-pointer w-full h-[300px] bg-gray-800 rounded flex justify-center items-center"
+      className="cursor-pointer w-full bg-gray-800 rounded flex justify-center items-center"
       onClick={() => handleSelectImage(refImage)}
       style={{
         backgroundImage: image ? `url(${URL.createObjectURL(image)})` : '',

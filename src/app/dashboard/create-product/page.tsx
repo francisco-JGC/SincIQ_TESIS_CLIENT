@@ -302,7 +302,7 @@ export default function CreateProductPage() {
 
         <Content
           title="Imágenes del producto"
-          className="grid grid-cols-3 gap-4 w-full"
+          className="grid grid-cols-3 gap-4 w-full h-[300px]"
           colorTitle="yellow"
         >
           <RenderUploadImage
