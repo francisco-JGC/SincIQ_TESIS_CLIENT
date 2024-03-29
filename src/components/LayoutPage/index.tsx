@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 interface LayoutPageProps {
   children: React.ReactNode
   className?: string
-  title: string
+  title?: string
   rollBack?: boolean
   subTitle?: string
   ActionComponent?: React.FC
@@ -38,7 +38,7 @@ export const LayoutPage = ({
               <Image src={RollBackIcon} alt="RollBackIcon" />
             </div>
           )}
-          <h1 className="layout-page__title">{title}</h1>
+          {title && <h1 className="layout-page__title">{title}</h1>}
         </div>
 
         <div className="layout-page__header__right">
