@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { getCatalogue } from '@/services/catalogue'
 import { toast } from 'sonner'
+import loadingIcon from '@/assets/icons-animated/tube-spinner.svg'
 
 interface ICatalogue {
   id: string
@@ -17,30 +18,19 @@ interface ICatalogue {
 
 export default function CataloguePage() {
   const [catalogue, setCatalogue] = useState<ICatalogue>({} as ICatalogue)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    toast.loading('Cargando información de la tienda', {
-      description: 'Espere un momento',
+    setLoading(true)
+    getCatalogue().then((response) => {
+      if (response.success) {
+        setCatalogue(response.data[0])
+      } else {
+        toast('Parece que aun no tienes una tienda configurada')
+      }
     })
-
-    getCatalogue()
-      .then((response) => {
-        if (response.success) {
-          setCatalogue(response.data)
-        } else {
-          toast('Parece que aun no tienes una tienda configurada')
-        }
-      })
-      .finally(() => toast.dismiss())
+    setLoading(false)
   }, [])
-
-  const dafaultCatalogue: ICatalogue = {
-    id: '',
-    name: 'SyncIQ Store',
-    description:
-      'Tienda de productos de tecnología y accesorios para dispositivos móviles y computadoras personales.',
-    banner: '',
-  }
 
   return (
     <LayoutPage>
@@ -56,16 +46,25 @@ export default function CataloguePage() {
         </div>
 
         <div className="flex w-full justify-center flex-col items-center gap-2 mt-4">
-          <h2 className="text-2xl font-bold">
-            {catalogue.name || dafaultCatalogue.name}
-          </h2>
-          <p className="text-gray-400 text-center">
-            {catalogue.description || dafaultCatalogue.description}
-          </p>
+          {loading ? (
+            <Image src={loadingIcon} alt="Loading" width={40} height={40} />
+          ) : (
+            <>
+              <h2 className="text-2xl font-bold">{catalogue.name}</h2>
+              <p className="text-gray-400 text-center">
+                {catalogue.description}
+              </p>
+            </>
+          )}
         </div>
 
         <div className="w-full flex justify-center gap-4 mt-4">
-          <Modal Component={() => <UpdateStore />} className="mt-4">
+          <Modal
+            Component={() => (
+              <UpdateStore state={catalogue} setState={setCatalogue} />
+            )}
+            className="mt-4"
+          >
             <CButon>Actualizar información</CButon>
           </Modal>
         </div>
