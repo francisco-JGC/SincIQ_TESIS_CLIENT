@@ -43,7 +43,7 @@ export const UpdateStore = ({ state, setState }: ICatalogue) => {
 
     if (response.success) {
       toast('Tienda actualizada correctamente')
-      setState(values)
+      setState(response.data)
     } else {
       toast('Ocurrio un error al actualizar la tienda')
     }
