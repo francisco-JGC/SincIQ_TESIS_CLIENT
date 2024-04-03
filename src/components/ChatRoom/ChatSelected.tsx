@@ -214,6 +214,7 @@ export const ActionChat = ({
             description="¿Quieres cambiar el estado del BOT?"
             nameButton={`${client?.bot_status ? 'Desactivar' : 'Activar'} BOT`}
             onConfirm={handleChangeBotStatus}
+            useButton={false}
           />
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -226,6 +227,7 @@ export const ActionChat = ({
             description="Al limpiar la conversación de este chat se eliminarán todos los mensajes registrados en el sistema. ¿Estás seguro de querer hacerlo?"
             nameButton="Limpiar conversación"
             onConfirm={handleClearConversation}
+            useButton={false}
           />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
