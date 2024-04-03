@@ -33,7 +33,11 @@ export default function CataloguePage() {
   }, [])
 
   return (
-    <LayoutPage>
+    <LayoutPage
+      ActionComponent={() => (
+        <UpdateStoreModal catalogue={catalogue} setCatalogue={setCatalogue} />
+      )}
+    >
       <section className=" w-full flex justify-center items-center flex-col">
         <div className="h-[250px] w-full flex">
           <Image
@@ -59,18 +63,24 @@ export default function CataloguePage() {
             </>
           )}
         </div>
-
-        <div className="w-full flex justify-center gap-4 mt-4">
-          <Modal
-            Component={() => (
-              <UpdateStore state={catalogue} setState={setCatalogue} />
-            )}
-            className="mt-4"
-          >
-            <CButon>Actualizar información</CButon>
-          </Modal>
-        </div>
       </section>
     </LayoutPage>
+  )
+}
+
+interface IUpdateStoreModal {
+  catalogue: ICatalogue
+  setCatalogue: (catalogue: ICatalogue) => void
+}
+const UpdateStoreModal = ({ catalogue, setCatalogue }: IUpdateStoreModal) => {
+  return (
+    <Modal
+      Component={() => (
+        <UpdateStore state={catalogue} setState={setCatalogue} />
+      )}
+      className="mt-4"
+    >
+      <CButon>Actualizar información</CButon>
+    </Modal>
   )
 }
