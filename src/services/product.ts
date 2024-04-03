@@ -10,3 +10,14 @@ export const addProduct = async (product: any) => {
   const data = await response.json()
   return data
 }
+
+export const getProducts = async () => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  const data = await response.json()
+  return data
+}
