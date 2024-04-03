@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { getCatalogue } from '@/services/catalogue'
 import { toast } from 'sonner'
 import loadingIcon from '@/assets/icons-animated/tube-spinner.svg'
+import { getProducts } from '@/services/product'
 
 interface ICatalogue {
   id: number
@@ -18,6 +19,7 @@ interface ICatalogue {
 
 export default function CataloguePage() {
   const [catalogue, setCatalogue] = useState<ICatalogue>({} as ICatalogue)
+  const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -29,6 +31,15 @@ export default function CataloguePage() {
         toast('Parece que aun no tienes una tienda configurada')
       }
     })
+
+    getProducts().then((response) => {
+      if (response.success) {
+        setProducts(response.data)
+      } else {
+        toast('No se pudieron obtener los productos')
+      }
+    })
+
     setLoading(false)
   }, [])
 
@@ -64,6 +75,8 @@ export default function CataloguePage() {
           )}
         </div>
       </section>
+
+      <section></section>
     </LayoutPage>
   )
 }
