@@ -1,4 +1,5 @@
 'use client'
+import './index.scss'
 import { LayoutPage } from '@/components/LayoutPage'
 import { Modal } from '@/components/Modal'
 import { UpdateStore } from './components/updateStore'
@@ -9,6 +10,8 @@ import { getCatalogue } from '@/services/catalogue'
 import { toast } from 'sonner'
 import loadingIcon from '@/assets/icons-animated/tube-spinner.svg'
 import { getProducts } from '@/services/product'
+import type { IProduct } from '@/store/products/products'
+import { ProductList } from './components/productList'
 
 interface ICatalogue {
   id: number
@@ -19,7 +22,7 @@ interface ICatalogue {
 
 export default function CataloguePage() {
   const [catalogue, setCatalogue] = useState<ICatalogue>({} as ICatalogue)
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<IProduct[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -76,7 +79,9 @@ export default function CataloguePage() {
         </div>
       </section>
 
-      <section></section>
+      <section>
+        <ProductList products={products} />
+      </section>
     </LayoutPage>
   )
 }
