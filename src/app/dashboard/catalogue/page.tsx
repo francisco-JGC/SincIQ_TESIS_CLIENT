@@ -13,6 +13,8 @@ import { getProducts } from '@/services/product'
 import type { IProduct } from '@/store/products/products'
 import { ProductList } from './components/productList'
 import { Filters } from './components/filters'
+import { Category } from '@/store/categories/categories'
+import { getCategories } from '@/services/category'
 
 interface ICatalogue {
   id: number
@@ -24,6 +26,7 @@ interface ICatalogue {
 export default function CataloguePage() {
   const [catalogue, setCatalogue] = useState<ICatalogue>({} as ICatalogue)
   const [products, setProducts] = useState<IProduct[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -41,6 +44,14 @@ export default function CataloguePage() {
         setProducts(response.data)
       } else {
         toast('No se pudieron obtener los productos')
+      }
+    })
+
+    getCategories().then((response) => {
+      if (response.success) {
+        setCategories(response.data)
+      } else {
+        toast('No se pudieron obtener las categorias')
       }
     })
 
@@ -81,9 +92,7 @@ export default function CataloguePage() {
       </section>
 
       <section className="products-container">
-        <div>
-          <Filters />
-        </div>
+        <Filters categories={categories} />
         <ProductList products={products} />
       </section>
     </LayoutPage>
