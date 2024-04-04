@@ -1,5 +1,11 @@
 @use '@/sass/index' as *;
 
+.products-container {
+  display: flex;
+  margin-top: 3em;
+  gap: 2em;
+}
+
 .item-product {
   position: relative;
   padding: 1em;
