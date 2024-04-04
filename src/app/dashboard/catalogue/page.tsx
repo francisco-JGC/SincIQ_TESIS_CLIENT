@@ -12,6 +12,7 @@ import loadingIcon from '@/assets/icons-animated/tube-spinner.svg'
 import { getProducts } from '@/services/product'
 import type { IProduct } from '@/store/products/products'
 import { ProductList } from './components/productList'
+import { Filters } from './components/filters'
 
 interface ICatalogue {
   id: number
@@ -79,7 +80,10 @@ export default function CataloguePage() {
         </div>
       </section>
 
-      <section>
+      <section className="products-container">
+        <div>
+          <Filters />
+        </div>
         <ProductList products={products} />
       </section>
     </LayoutPage>
