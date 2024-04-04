@@ -29,22 +29,24 @@ export const ProductItem = ({ product }: { product: IProduct }) => {
         <Slider>
           {product.images_url.map((image, index) => {
             return (
-              <CarouselItem key={index}>
-                <div className="relative h-64">
-                  <Image
-                    src={image}
-                    alt={product.name}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-              </CarouselItem>
+              image && (
+                <CarouselItem key={index}>
+                  <div className="relative h-64">
+                    <Image
+                      src={image}
+                      alt={product.name}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                </CarouselItem>
+              )
             )
           })}
         </Slider>
       </div>
 
-      <h2 className="text-lg font-semibold mt-2">{product.name}</h2>
+      <h2 className="text-lg font-semibold mt-2 text-center">{product.name}</h2>
       <p>
         <span
           className={product.discount > 0 ? 'line-through text-[#999]' : ''}
