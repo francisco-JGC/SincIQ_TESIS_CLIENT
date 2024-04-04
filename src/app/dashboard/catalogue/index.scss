@@ -9,7 +9,34 @@
   justify-content: center;
   background-color: $background-color;
   border-radius: 10px;
-  max-width: 300px;
+  max-width: 250px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 2px;
+    background: $primary-color;
+    z-index: 1;
+    box-shadow: 0 0 10px $primary-color, 0 0 20px $primary-color,
+      0 0 40px $primary-color, 0 0 80px $primary-color;
+    transition: all 0.2s ease-in-out;
+    animation: neon 1.5s infinite linear;
+  }
+
+  &:hover {
+    .slider-content img {
+      transform: scale(1.1);
+    }
+  }
+
+  &:hover::before {
+    width: 30%;
+    left: 50%;
+  }
 
   .discount {
     position: absolute;
@@ -48,8 +75,10 @@
 
     div {
       height: 200px !important;
+
       img {
         border-radius: 10px;
+        transition: all 0.2s ease-in-out;
       }
     }
   }
