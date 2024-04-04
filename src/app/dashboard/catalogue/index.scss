@@ -12,10 +12,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   background-color: $background-color;
   border-radius: 10px;
   max-width: 250px;
+  height: 320px;
 
   &::before {
     content: '';
@@ -78,7 +78,6 @@
 
   .slider-content {
     width: 150px;
-
     div {
       height: 200px !important;
 
