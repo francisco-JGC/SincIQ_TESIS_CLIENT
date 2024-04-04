@@ -89,3 +89,68 @@
     }
   }
 }
+
+.filters {
+  width: 30%;
+  background: $background-color;
+  padding: 1em;
+  border-radius: 10px;
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  [type='text'],
+  [type='number'] {
+    background-color: $content-color;
+  }
+
+  .min-max {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+  }
+
+  .categories {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    .category {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+
+      [type='checkbox'] {
+        // create a custom checkbox
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid $primary-color;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+
+        &:checked {
+          background-color: $primary-color;
+        }
+
+        &:checked::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 10px;
+          height: 10px;
+          background-color: #fff;
+          border-radius: 50%;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
