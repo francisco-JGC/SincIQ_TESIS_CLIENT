@@ -5,6 +5,12 @@
   margin-top: 3em;
   gap: 2em;
 }
+.products-list-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1em;
+}
 
 .item-product {
   position: relative;
@@ -94,6 +100,9 @@
   background: $background-color;
   padding: 1em;
   border-radius: 10px;
+  height: fit-content;
+  position: sticky;
+  top: 10px;
 
   h2 {
     font-size: 1.2em;
