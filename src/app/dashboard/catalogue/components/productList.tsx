@@ -3,7 +3,19 @@ import { ProductItem } from './productItem'
 
 export const ProductList = ({ products }: { products: IProduct[] }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="products-list-container">
+      {products.map((product) => (
+        <ProductItem key={product.id} product={product} />
+      ))}
+      {products.map((product) => (
+        <ProductItem key={product.id} product={product} />
+      ))}
+      {products.map((product) => (
+        <ProductItem key={product.id} product={product} />
+      ))}
+      {products.map((product) => (
+        <ProductItem key={product.id} product={product} />
+      ))}
       {products.map((product) => (
         <ProductItem key={product.id} product={product} />
       ))}
