@@ -36,14 +36,13 @@ export default function CataloguePage() {
     min: '',
     max: '',
   })
-  const [categoriesFilter, setCategoriesFilter] = useState<Category[]>([])
+  const [categoriesFilter, setCategoriesFilter] = useState<string[]>([])
 
-  const handleSearch = (e: any) => {
-    setSearch(e.value)
-  }
+  const handleSearch = (e: any) => setSearch(e.value)
 
   const handleCategories = (e: any) => {
     const category = e.value
+    console.log('category ', category)
     if (categoriesFilter.includes(category)) {
       setCategoriesFilter(categoriesFilter.filter((cat) => cat !== category))
     } else {
@@ -59,7 +58,7 @@ export default function CataloguePage() {
       const max = minmax.max ? product.price <= parseInt(minmax.max) : true
 
       const category = categoriesFilter.length
-        ? categoriesFilter.includes(product.category)
+        ? categoriesFilter.includes(product.category.name)
         : true
 
       return name.includes(searchValue) && min && max && category

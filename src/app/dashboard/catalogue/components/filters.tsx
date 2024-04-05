@@ -65,8 +65,8 @@ export const Filters = ({
               type="checkbox"
               id={category.name}
               name={category.name}
-              value={category.id}
-              onChange={handleCategories}
+              value={category.name}
+              onChange={(e) => handleCategories(e.target)}
             />
             <label htmlFor={category.name}>{category.name}</label>
           </div>
