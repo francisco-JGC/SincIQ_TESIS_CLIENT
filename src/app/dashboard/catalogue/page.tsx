@@ -5,7 +5,7 @@ import { Modal } from '@/components/Modal'
 import { UpdateStore } from './components/updateStore'
 import { CButon } from '@/components/CButon'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getCatalogue } from '@/services/catalogue'
 import { toast } from 'sonner'
 import loadingIcon from '@/assets/icons-animated/tube-spinner.svg'
@@ -15,6 +15,7 @@ import { ProductList } from './components/productList'
 import { Filters } from './components/filters'
 import { Category } from '@/store/categories/categories'
 import { getCategories } from '@/services/category'
+import { useForm } from '@/hooks/useForm'
 
 interface ICatalogue {
   id: number
@@ -28,6 +29,42 @@ export default function CataloguePage() {
   const [products, setProducts] = useState<IProduct[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
+
+  // FILTES
+  const [search, setSearch] = useState('')
+  const { values: minmax, handleInputChange } = useForm({
+    min: '',
+    max: '',
+  })
+  const [categoriesFilter, setCategoriesFilter] = useState<Category[]>([])
+
+  const handleSearch = (e: any) => {
+    setSearch(e.value)
+  }
+
+  const handleCategories = (e: any) => {
+    const category = e.value
+    if (categoriesFilter.includes(category)) {
+      setCategoriesFilter(categoriesFilter.filter((cat) => cat !== category))
+    } else {
+      setCategoriesFilter([...categoriesFilter, category])
+    }
+  }
+
+  const productsFiltered = useMemo(() => {
+    return products.filter((product) => {
+      const name = product.name.toLowerCase()
+      const searchValue = search.toLowerCase()
+      const min = minmax.min ? product.price >= parseInt(minmax.min) : true
+      const max = minmax.max ? product.price <= parseInt(minmax.max) : true
+
+      const category = categoriesFilter.length
+        ? categoriesFilter.includes(product.category)
+        : true
+
+      return name.includes(searchValue) && min && max && category
+    })
+  }, [products, search, minmax, categoriesFilter])
 
   useEffect(() => {
     setLoading(true)
@@ -92,8 +129,15 @@ export default function CataloguePage() {
       </section>
 
       <section className="products-container">
-        <Filters categories={categories} />
-        <ProductList products={products} />
+        <Filters
+          categories={categories}
+          search={search}
+          handleSearch={handleSearch}
+          minmax={minmax}
+          handleInputChange={handleInputChange}
+          handleCategories={handleCategories}
+        />
+        <ProductList products={productsFiltered} />
       </section>
     </LayoutPage>
   )
