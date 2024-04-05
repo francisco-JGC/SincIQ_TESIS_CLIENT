@@ -3,9 +3,6 @@ import type { Category } from '@/store/categories/categories'
 import searchIcon from '@/assets/icons/search_icon.svg'
 import dollarIcon from '@/assets/icons/dollar.svg'
 
-import { useState } from 'react'
-import { useForm } from '@/hooks/useForm'
-
 interface IFilters {
   categories: Category[]
   search: string

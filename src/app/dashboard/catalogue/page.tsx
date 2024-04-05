@@ -30,7 +30,7 @@ export default function CataloguePage() {
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
 
-  // FILTES
+  // FILTERS
   const [search, setSearch] = useState('')
   const { values: minmax, handleInputChange } = useForm({
     min: '',
