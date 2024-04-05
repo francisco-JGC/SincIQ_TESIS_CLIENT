@@ -12,8 +12,8 @@ interface IFilters {
 export const Filters = ({ categories }: IFilters) => {
   const [search, setSearch] = useState('')
   const { values, handleInputChange } = useForm({
-    min: 0,
-    max: 0,
+    min: '',
+    max: '',
   })
 
   const handleSearch = (e: any) => {
