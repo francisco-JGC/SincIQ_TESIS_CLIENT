@@ -8,18 +8,23 @@ import { useForm } from '@/hooks/useForm'
 
 interface IFilters {
   categories: Category[]
-}
-export const Filters = ({ categories }: IFilters) => {
-  const [search, setSearch] = useState('')
-  const { values, handleInputChange } = useForm({
-    min: '',
-    max: '',
-  })
-
-  const handleSearch = (e: any) => {
-    setSearch(e.value)
+  search: string
+  handleSearch: (e: any) => void
+  minmax: {
+    min: string
+    max: string
   }
-
+  handleInputChange: (e: any) => void
+  handleCategories: (e: any) => void
+}
+export const Filters = ({
+  categories,
+  search,
+  handleSearch,
+  minmax,
+  handleInputChange,
+  handleCategories,
+}: IFilters) => {
   return (
     <div className="filters">
       <h2>Filtros</h2>
@@ -39,7 +44,7 @@ export const Filters = ({ categories }: IFilters) => {
       <div className="min-max">
         <CInput
           type="number"
-          value={values.min}
+          value={minmax.min}
           placeholder="Min: 0"
           onChange={handleInputChange}
           icon={dollarIcon}
@@ -47,7 +52,7 @@ export const Filters = ({ categories }: IFilters) => {
         />
         <CInput
           type="number"
-          value={values.max}
+          value={minmax.max}
           placeholder="Max: 0"
           onChange={handleInputChange}
           icon={dollarIcon}
@@ -64,6 +69,7 @@ export const Filters = ({ categories }: IFilters) => {
               id={category.name}
               name={category.name}
               value={category.id}
+              onChange={handleCategories}
             />
             <label htmlFor={category.name}>{category.name}</label>
           </div>
