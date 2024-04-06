@@ -15,17 +15,7 @@ export const ProductItem = ({ product, handleRemoveProduct }: IProductItem) => {
   const router = useRouter()
 
   return (
-    <div
-      className="item-product"
-      key={product.id}
-      onClick={() =>
-        router.push(
-          `/dashboard/catalogue/product/${product.name.replace(/ /g, '_')}/${
-            product.id
-          }`,
-        )
-      }
-    >
+    <div className="item-product" key={product.id}>
       {product.discount > 0 && (
         <div className="discount">
           <div className="discount-content">
@@ -63,7 +53,18 @@ export const ProductItem = ({ product, handleRemoveProduct }: IProductItem) => {
         </Slider>
       </div>
 
-      <h2 className="text-lg font-semibold mt-2 text-center">{product.name}</h2>
+      <h2
+        className="text-lg font-semibold mt-2 text-center"
+        onClick={() =>
+          router.push(
+            `/dashboard/catalogue/product/${product.name.replace(/ /g, '_')}/${
+              product.id
+            }`,
+          )
+        }
+      >
+        {product.name}
+      </h2>
       <p>
         <span
           className={product.discount > 0 ? 'line-through text-[#999]' : ''}
