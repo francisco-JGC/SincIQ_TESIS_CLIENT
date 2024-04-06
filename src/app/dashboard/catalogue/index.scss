@@ -20,7 +20,7 @@
   align-items: center;
   background-color: $background-color;
   border-radius: 10px;
-  max-width: 250px;
+  max-width: 270px;
   gap: 1em;
 
   .product-info {
@@ -31,10 +31,13 @@
     align-items: center;
     padding: 1em;
     height: 100%;
+    width: 100%;
+
     h2 {
       font-size: 1.1em;
       text-align: center;
       margin: 0 -2em 0 -2em;
+      max-width: 100%;
     }
 
     p {
@@ -100,7 +103,8 @@
   }
 
   .slider-content {
-    width: 150px;
+    width: 100%;
+    max-width: 160px;
 
     div {
       height: 200px !important;
