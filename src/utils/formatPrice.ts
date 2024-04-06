@@ -1,5 +1,8 @@
-export const formatPrice = (price?: number) =>
-  new Intl.NumberFormat('en-US', {
+export const formatPrice = (price?: number) => {
+  const cordobas = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'NIO',
   }).format(price || 0)
+
+  return cordobas.replace('NIO', 'C$')
+}
