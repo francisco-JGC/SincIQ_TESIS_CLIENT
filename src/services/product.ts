@@ -21,3 +21,18 @@ export const getProducts = async () => {
   const data = await response.json()
   return data
 }
+
+export const deleteProductById = async (id: number) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  )
+
+  const data = await response.json()
+  return data
+}
