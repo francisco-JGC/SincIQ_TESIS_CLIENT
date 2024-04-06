@@ -10,7 +10,7 @@ import { getCatalogue } from '@/services/catalogue'
 import { toast } from 'sonner'
 import loadingIcon from '@/assets/icons-animated/tube-spinner.svg'
 import { getProducts } from '@/services/product'
-import type { IProduct } from '@/store/products/products'
+import { useProductsStore, type IProduct } from '@/store/products/products'
 import { ProductList } from './components/productList'
 import { Filters } from './components/filters'
 import { Category } from '@/store/categories/categories'
@@ -26,9 +26,10 @@ interface ICatalogue {
 
 export default function CataloguePage() {
   const [catalogue, setCatalogue] = useState<ICatalogue>({} as ICatalogue)
-  const [products, setProducts] = useState<IProduct[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
+  const products = useProductsStore((state) => state.products)
+  const setProducts = useProductsStore((state) => state.setProducts)
 
   // FILTERS
   const [search, setSearch] = useState('')
@@ -92,7 +93,7 @@ export default function CataloguePage() {
     })
 
     setLoading(false)
-  }, [products])
+  }, [])
 
   return (
     <LayoutPage
@@ -152,7 +153,7 @@ const UpdateStoreModal = ({ catalogue, setCatalogue }: IUpdateStoreModal) => {
       Component={() => (
         <UpdateStore state={catalogue} setState={setCatalogue} />
       )}
-      className="mt-4"
+      className="mt-4 z-10"
     >
       <CButon>Actualizar información</CButon>
     </Modal>
