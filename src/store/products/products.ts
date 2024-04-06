@@ -20,6 +20,7 @@ type ProductsStore = {
   products: IProduct[]
   addProduct: (product: IProduct) => void
   removeProduct: (id: number) => void
+  setProducts: (products: IProduct[]) => void
 }
 
 export const useProductsStore = create<ProductsStore>((set, get) => ({
@@ -42,4 +43,5 @@ export const useProductsStore = create<ProductsStore>((set, get) => ({
     set((state) => ({
       products: state.products.filter((product) => product.id !== id),
     })),
+  setProducts: (products) => set(() => ({ products })),
 }))
