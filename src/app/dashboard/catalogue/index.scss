@@ -21,9 +21,25 @@
   background-color: $background-color;
   border-radius: 10px;
   max-width: 250px;
+  gap: 1em;
 
-  h2 {
-    cursor: pointer;
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1em;
+    align-items: center;
+    padding: 1em;
+    height: 100%;
+    h2 {
+      font-size: 1.1em;
+      text-align: center;
+      margin: 0 -2em 0 -2em;
+    }
+
+    p {
+      font-size: 0.9em;
+    }
   }
 
   &::before {
@@ -39,7 +55,6 @@
     box-shadow: 0 0 10px $primary-color, 0 0 20px $primary-color,
       0 0 40px $primary-color, 0 0 80px $primary-color;
     transition: all 0.2s ease-in-out;
-    animation: neon 1.5s infinite linear;
   }
 
   &:hover::before {
@@ -50,6 +65,7 @@
   &:hover h2 {
     text-decoration: underline;
     color: #09f;
+    cursor: pointer;
   }
 
   .discount {

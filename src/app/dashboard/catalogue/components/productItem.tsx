@@ -53,29 +53,31 @@ export const ProductItem = ({ product, handleRemoveProduct }: IProductItem) => {
         </Slider>
       </div>
 
-      <h2
-        className="text-lg font-semibold mt-2 text-center"
-        onClick={() =>
-          router.push(
-            `/dashboard/catalogue/product/${product.name.replace(/ /g, '_')}/${
-              product.id
-            }`,
-          )
-        }
-      >
-        {product.name}
-      </h2>
-      <p>
-        <span
-          className={product.discount > 0 ? 'line-through text-[#999]' : ''}
+      <div className="product-info">
+        <h2
+          onClick={() =>
+            router.push(
+              `/dashboard/catalogue/product/${product.name.replace(
+                / /g,
+                '_',
+              )}/${product.id}`,
+            )
+          }
         >
-          {formatPrice(product.price)}
-        </span>
-        {product.discount > 0 &&
-          ` - ${formatPrice(
-            product.price - (product.price * product.discount) / 100,
-          )}`}
-      </p>
+          {product.name}
+        </h2>
+        <p>
+          <span
+            className={product.discount > 0 ? 'line-through text-[#999]' : ''}
+          >
+            {formatPrice(product.price)}
+          </span>
+          {product.discount > 0 &&
+            ` - ${formatPrice(
+              product.price - (product.price * product.discount) / 100,
+            )}`}
+        </p>
+      </div>
     </div>
   )
 }
