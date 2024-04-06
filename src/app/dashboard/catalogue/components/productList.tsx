@@ -24,7 +24,11 @@ export const ProductList = ({ products }: { products: IProduct[] }) => {
   return (
     <div className="products-list-container">
       {products.map((product) => (
-        <ProductItem key={product.id} product={product} />
+        <ProductItem
+          key={product.id}
+          product={product}
+          handleRemoveProduct={handleRemoveProduct}
+        />
       ))}
     </div>
   )
