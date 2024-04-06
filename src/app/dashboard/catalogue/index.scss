@@ -21,7 +21,7 @@
   background-color: $background-color;
   border-radius: 10px;
   max-width: 250px;
-  height: 320px;
+  height: 360px;
 
   &::before {
     content: '';
@@ -37,12 +37,6 @@
       0 0 40px $primary-color, 0 0 80px $primary-color;
     transition: all 0.2s ease-in-out;
     animation: neon 1.5s infinite linear;
-  }
-
-  &:hover {
-    .slider-content img {
-      transform: scale(1.1);
-    }
   }
 
   &:hover::before {
