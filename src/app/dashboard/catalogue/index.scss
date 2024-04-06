@@ -22,6 +22,10 @@
   border-radius: 10px;
   max-width: 250px;
 
+  h2 {
+    cursor: pointer;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -41,6 +45,11 @@
   &:hover::before {
     width: 30%;
     left: 50%;
+  }
+
+  &:hover h2 {
+    text-decoration: underline;
+    color: #09f;
   }
 
   .discount {
