@@ -93,6 +93,7 @@ export default function CataloguePage() {
     })
 
     setLoading(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
