@@ -5,27 +5,12 @@ import Image from 'next/image'
 import { CarouselItem } from '@/components/ui/carousel'
 import { formatPrice } from '@/utils/formatPrice'
 import { AlertDialogModal } from '@/components/AlertDialog'
-import { deleteProductById } from '@/services/product'
-import { toast } from 'sonner'
 
-export const ProductItem = ({ product }: { product: IProduct }) => {
-  const removeProduct = useProductsStore((state) => state.removeProduct)
-
-  const handleRemoveProduct = async (id: number) => {
-    toast.loading('Eliminando producto...')
-
-    const response = await deleteProductById(id)
-
-    toast.dismiss()
-
-    if (response.success) {
-      toast.success('Has eliminado el producto')
-      removeProduct(id)
-    } else {
-      toast.error('Ha ocurrido un error al eliminar el producto')
-    }
-  }
-
+interface IProductItem {
+  product: IProduct
+  handleRemoveProduct: (id: number) => void
+}
+export const ProductItem = ({ product, handleRemoveProduct }: IProductItem) => {
   return (
     <div className="item-product" key={product.id}>
       {product.discount > 0 && (
