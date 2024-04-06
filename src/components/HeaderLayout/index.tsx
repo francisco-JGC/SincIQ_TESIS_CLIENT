@@ -111,7 +111,7 @@ export const HeaderLayout = () => {
         />
       </div>
       <div className="user">
-        <div className="user__notifications" data-count="3" data-active="true">
+        {/* <div className="user__notifications" data-count="3" data-active="true">
           <Image
             src={bellIcon}
             typeof="svg"
@@ -119,7 +119,7 @@ export const HeaderLayout = () => {
             width={24}
             height={24}
           />
-        </div>
+        </div> */}
 
         <CSheet
           title=""
