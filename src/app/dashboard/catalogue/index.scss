@@ -21,7 +21,6 @@
   background-color: $background-color;
   border-radius: 10px;
   max-width: 250px;
-  height: 360px;
 
   &::before {
     content: '';
@@ -77,12 +76,16 @@
 
   .slider-content {
     width: 150px;
+
     div {
       height: 200px !important;
+      background-color: #fff;
+      border-radius: 10px;
 
       img {
         border-radius: 10px;
         transition: all 0.2s ease-in-out;
+        object-fit: contain !important;
       }
     }
   }
