@@ -42,7 +42,7 @@ export default function CataloguePage() {
 
   const handleCategories = (e: any) => {
     const category = e.value
-    console.log('category ', category)
+
     if (categoriesFilter.includes(category)) {
       setCategoriesFilter(categoriesFilter.filter((cat) => cat !== category))
     } else {
@@ -92,7 +92,7 @@ export default function CataloguePage() {
     })
 
     setLoading(false)
-  }, [])
+  }, [products])
 
   return (
     <LayoutPage
