@@ -39,12 +39,7 @@ export const ProductItem = ({ product, handleRemoveProduct }: IProductItem) => {
               image && (
                 <CarouselItem key={index}>
                   <div className="relative h-64">
-                    <Image
-                      src={image}
-                      alt={product.name}
-                      layout="fill"
-                      objectFit="cover"
-                    />
+                    <Image src={image} alt={product.name} layout="fill" />
                   </div>
                 </CarouselItem>
               )
@@ -57,10 +52,9 @@ export const ProductItem = ({ product, handleRemoveProduct }: IProductItem) => {
         <h2
           onClick={() =>
             router.push(
-              `/dashboard/catalogue/product/${product.name.replace(
-                / /g,
-                '_',
-              )}/${product.id}`,
+              `/dashboard/catalogue/update/${product.name.replace(/ /g, '_')}/${
+                product.id
+              }`,
             )
           }
         >
