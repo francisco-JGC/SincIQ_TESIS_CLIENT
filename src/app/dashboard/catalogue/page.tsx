@@ -21,6 +21,8 @@ interface ICatalogue {
   id: number
   name: string
   description?: string
+  location?: string
+  address?: string
   banner?: string
 }
 
