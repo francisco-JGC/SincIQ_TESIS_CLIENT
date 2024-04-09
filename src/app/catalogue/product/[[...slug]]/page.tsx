@@ -117,7 +117,7 @@ export default function ProductPage({ params }: IProps) {
 
               <div className="actions">
                 <a
-                  href={`https://wa.me/15550981627?text=Hola, estoy interesado en el producto ${document.location.href}`}
+                  href={`https://wa.me/15550981627?text=Hola, estoy interesado en el producto *(${product.name} > ${product.id})*`}
                   target="_blank"
                   rel="noreferrer"
                   className="whatsapp-button flex items-center justify-center bg-[#25d366] text-white rounded-md px-4 py-2 mt-4 transition-all duration-300 hover:bg-[#128c7e] hover:shadow-md
@@ -134,10 +134,9 @@ export default function ProductPage({ params }: IProps) {
                 </a>
               </div>
 
-              <p>
-                <span>Descripción:</span>
-                <br />
-                {product.description}
+              <p className="my-4 flex flex-col">
+                <span className="font-semibold my-4">Descripción:</span>
+                <span>{product.description}</span>
               </p>
             </div>
           </div>
