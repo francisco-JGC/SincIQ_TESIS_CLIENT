@@ -51,3 +51,19 @@ export const getProductById = async (id: number) => {
   const data = await response.json()
   return data
 }
+
+export const updateProduct = async (id: number, product: any) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(product),
+    },
+  )
+
+  const data = await response.json()
+  return data
+}
