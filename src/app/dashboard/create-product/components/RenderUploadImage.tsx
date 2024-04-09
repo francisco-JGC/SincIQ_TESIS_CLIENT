@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import loadingIcon from '@/assets/icons-animated/tube-spinner.svg'
 
 interface IRenderUploadImage {
-  image: File | null
+  image: File | null | string
   setImage: React.Dispatch<React.SetStateAction<File | null>>
   handleSelectImage: (ref: React.RefObject<HTMLInputElement>) => void
   refImage: React.RefObject<HTMLInputElement>
@@ -60,6 +60,8 @@ export const RenderUploadImage = ({
   const handleRemoveImage = async () => {
     setLoading(true)
 
+    console.log('url', url)
+
     deleteImage(url)
       .then((response) => {
         setLoading(false)
@@ -81,7 +83,10 @@ export const RenderUploadImage = ({
       className="cursor-pointer w-full bg-gray-800 rounded flex justify-center items-center"
       onClick={() => handleSelectImage(refImage)}
       style={{
-        backgroundImage: image ? `url(${URL.createObjectURL(image)})` : '',
+        backgroundImage: image
+          ? `url(${URL.createObjectURL(image as Blob)})`
+          : `url(${url})`,
+
         backgroundSize: 'contain',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -98,7 +103,7 @@ export const RenderUploadImage = ({
           </div>
         </div>
       )}
-      {image && (
+      {(image || url) && (
         <div
           className="absolute top-2 right-2 w-[30px] h-[30px] p-1 rounded-full cursor-pointer flex items-center justify-center bg-gray-300"
           onClick={(e) => {
@@ -116,7 +121,7 @@ export const RenderUploadImage = ({
         className="hidden"
         accept=".jpg, .jpeg, .png"
       />
-      {!image && (
+      {!image && !url && (
         <div className="flex flex-col items-center gap-2">
           <Image src={galeryIcon} alt="galery" />
           <span className="text-gray-400 font-bold">Seleccione</span>
