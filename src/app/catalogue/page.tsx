@@ -1,9 +1,6 @@
 'use client'
 import './index.scss'
 import { LayoutPage } from '@/components/LayoutPage'
-import { Modal } from '@/components/Modal'
-import { UpdateStore } from './components/updateStore'
-import { CButon } from '@/components/CButon'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 import { getCatalogue } from '@/services/catalogue'
@@ -17,7 +14,7 @@ import { Category } from '@/store/categories/categories'
 import { getCategories } from '@/services/category'
 import { useForm } from '@/hooks/useForm'
 
-interface ICatalogue {
+export interface ICatalogue {
   id: number
   name: string
   description?: string
