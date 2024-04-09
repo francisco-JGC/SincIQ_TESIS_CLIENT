@@ -17,6 +17,8 @@ export const UpdateStore = ({ state, setState }: ICatalogue) => {
     name: state.name,
     description: state.description,
     banner: state.banner,
+    location: state.location,
+    address: state.address,
   }
   const [banner, setBanner] = useState<File | null>(null)
   const [loading, setLoading] = useState(false)
@@ -39,6 +41,7 @@ export const UpdateStore = ({ state, setState }: ICatalogue) => {
 
   const handleSave = async () => {
     setLoading(true)
+    console.log(values)
     const response = await createOrUpdateCatalogue(values)
 
     if (response.success) {
@@ -69,12 +72,17 @@ export const UpdateStore = ({ state, setState }: ICatalogue) => {
         />
       </div>
 
-      <div className="flex w-full justify-center flex-col items-center gap-2 mt-4">
+      <div className="flex w-full justify-center flex-col items-start gap-2 mt-4">
         <CInput
           name="name"
           value={values.name}
           onChange={handleInputChange}
           placeholder="Ej: SyncIQ Store"
+          label="Nombre de la tienda"
+          className="w-full"
+          inputStyle={{
+            color: '#e5e5e5',
+          }}
         />
 
         <CInput
@@ -82,17 +90,49 @@ export const UpdateStore = ({ state, setState }: ICatalogue) => {
           value={values.description}
           onChange={handleInputChange}
           placeholder="Ej: La mejor tienda de tecnología"
+          label="Descripción de la tienda"
           className="w-full"
+          inputStyle={{
+            color: '#e5e5e5',
+          }}
         />
 
-        <CButon
-          props={{ onClick: handleSave }}
-          loading_mode={loading}
-          icon={pencilIcon}
-          poisition_icon="left"
-        >
-          Actualizar catálogo
-        </CButon>
+        <CInput
+          name="location"
+          value={values.location}
+          onChange={handleInputChange}
+          placeholder="Ej: León, Nicaragua"
+          label="Ubicación"
+          className="w-full"
+          inputStyle={{
+            color: '#e5e5e5',
+          }}
+        />
+
+        <CInput
+          name="address"
+          value={values.address}
+          onChange={handleInputChange}
+          placeholder="Ej: Av. Los Olivos 123"
+          label="Dirección"
+          className="w-full"
+          inputStyle={{
+            color: '#e5e5e5',
+          }}
+        />
+
+        <div className="w-full flex justify-center items-center gap-4">
+          <CButon
+            props={{ onClick: handleSave }}
+            loading_mode={loading}
+            icon={pencilIcon}
+            poisition_icon="left"
+            // alinear solo al centro
+            className="w-[250px] justify-center"
+          >
+            Actualizar catálogo
+          </CButon>
+        </div>
       </div>
     </section>
   )
