@@ -17,26 +17,41 @@ import plus_circleIcon from '@/assets/icons/plus_circle.svg'
 import { NewCategory } from './components/NewCategory'
 import { toast } from 'sonner'
 import { addProduct } from '@/services/product'
+import { IProduct } from '@/store/products/products'
 
-const INPUTS_STYLES: React.CSSProperties = {
+export const INPUTS_STYLES: React.CSSProperties = {
   background: '#1a1527',
   fontWeight: '500',
 }
 
-export default function CreateProductPage() {
+interface IProductProps {
+  product?: IProduct
+  editable?: boolean
+  handleUpdateProduct?: (product: IProduct) => void
+  title?: string
+  actionName?: string
+}
+
+export default function CreateProductPage({
+  product,
+  editable,
+  handleUpdateProduct,
+  title,
+  actionName,
+}: IProductProps) {
   const initialValues = {
-    name: '',
-    price: 0,
-    gender: '',
-    description: '',
-    category: '',
-    discount: '0',
-    quantity: '',
-    visibility: true,
-    state: 'nuevo',
-    uploadImg1: '',
-    uploadImg2: '',
-    uploadImg3: '',
+    name: product?.name || '',
+    price: product?.price || '',
+    gender: product?.gender || '',
+    description: product?.description || '',
+    category: product?.category?.name || '',
+    discount: product?.discount || '0',
+    quantity: product?.quantity || '0',
+    visibility: product?.visibility || false,
+    state: product?.state || '',
+    uploadImg1: product?.images_url[0] || '',
+    uploadImg2: product?.images_url[1] || '',
+    uploadImg3: product?.images_url[2] || '',
   }
 
   const [image1, setImage1] = useState<File | null>(null)
@@ -104,7 +119,11 @@ export default function CreateProductPage() {
 
     setLoading(true)
 
-    const response = await addProduct(values)
+    const response = editable
+      ? handleUpdateProduct && handleUpdateProduct(values)
+      : await addProduct(values)
+
+    if (editable) return setLoading(false)
 
     if (response.success) {
       toast.success('Producto creado correctamente', {
@@ -136,10 +155,15 @@ export default function CreateProductPage() {
 
   return (
     <LayoutPage
-      title="Nuevo producto"
+      title={title || 'Nuevo producto'}
       rollBack
       ActionComponent={() => (
-        <ActionComponent handleSubmit={handleSubmit} loading={loading} />
+        <ActionComponent
+          handleSubmit={handleSubmit}
+          loading={loading}
+          actionName={actionName}
+          editable
+        />
       )}
     >
       <div className="grid grid-cols-1 gap-4 w-full">
@@ -387,14 +411,24 @@ export default function CreateProductPage() {
 const ActionComponent = ({
   handleSubmit,
   loading,
+  actionName,
+  editable,
 }: {
   handleSubmit: () => void
   loading: boolean
+  actionName?: string
+  editable?: boolean
 }) => (
   <AlertDialogModal
     nameButton="Crear producto"
-    title="¿Estás seguro de crear este producto?"
-    description="Asegúrate de que la información sea correcta antes de crear el producto."
+    title={
+      editable ? 'Actualizar producto' : '¿Estás seguro de crear este producto?'
+    }
+    description={
+      editable
+        ? '¿Estás seguro de actualizar este producto?'
+        : 'Asegúrate de que la información sea correcta antes de crear el producto.'
+    }
     onConfirm={handleSubmit}
   >
     <CButon
@@ -402,7 +436,7 @@ const ActionComponent = ({
       poisition_icon="right"
       loading_mode={loading}
     >
-      Crear producto
+      {actionName || 'Crear producto'}
     </CButon>
   </AlertDialogModal>
 )
