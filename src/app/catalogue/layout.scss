@@ -1,0 +1,14 @@
+@use '@/sass/index' as *;
+
+.layout {
+  width: 100%;
+  width: 100%;
+
+  .catalogue-notice {
+    display: block;
+    width: 100%;
+    background: $primary-color;
+    color: #fff;
+    text-align: center;
+  }
+}
