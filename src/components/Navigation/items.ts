@@ -2,6 +2,7 @@ import dashboardIcon from '@/assets/icons/dashboard_item.svg'
 import chartIcon from '@/assets/icons/chart_item_menu.svg'
 import plus_circleIcon from '@/assets/icons/plus_circle.svg'
 import productIcon from '@/assets/icons/product_icon.svg'
+import salesIcon from '@/assets/icons/sales.svg'
 
 export const NAVIGATION_ITEMS = [
   {
@@ -9,6 +10,12 @@ export const NAVIGATION_ITEMS = [
     href: '/dashboard',
     icon: dashboardIcon,
     segment: 'dashboard',
+  },
+  {
+    title: 'Ventas',
+    href: '/dashboard/sales',
+    icon: salesIcon,
+    segment: 'sales',
   },
   {
     title: 'Estadísticas de ventas',
