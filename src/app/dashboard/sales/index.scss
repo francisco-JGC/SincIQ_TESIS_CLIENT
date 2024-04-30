@@ -1,0 +1,55 @@
+.sales-page {
+  .table-products {
+    border: 1px solid #e0e0e0;
+    width: 100%;
+
+    thead,
+    tbody {
+      background-color: #27193b;
+
+      th,
+      td {
+        text-align: start;
+        padding: 1em;
+
+        &:last-child {
+          text-align: center;
+        }
+      }
+    }
+
+    tbody {
+      background-color: rgb(24, 15, 45);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .delete {
+      button {
+        background-color: tomato;
+        padding: 5px;
+        border-radius: 50px;
+        cursor: pointer;
+
+        img {
+          width: 15px;
+        }
+      }
+    }
+  }
+}
+
+.list_register_product {
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  img {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: contain;
+    background-color: #fff;
+  }
+}
