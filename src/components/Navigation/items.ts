@@ -19,9 +19,9 @@ export const NAVIGATION_ITEMS = [
   },
   {
     title: 'Estadísticas de ventas',
-    href: '/dashboard/statistics-sales',
+    href: '/dashboard/statistics-sale',
     icon: chartIcon,
-    segment: 'statistics-sales',
+    segment: 'statistics-sale',
   },
   {
     title: 'Catálogo',
