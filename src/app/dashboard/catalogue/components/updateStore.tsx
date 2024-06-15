@@ -14,11 +14,11 @@ interface ICatalogue {
 }
 export const UpdateStore = ({ state, setState }: ICatalogue) => {
   const initialValues = {
-    name: state.name,
-    description: state.description,
-    banner: state.banner,
-    location: state.location,
-    address: state.address,
+    name: state?.name,
+    description: state?.description,
+    banner: state?.banner,
+    location: state?.location,
+    address: state?.address,
   }
   const [banner, setBanner] = useState<File | null>(null)
   const [loading, setLoading] = useState(false)

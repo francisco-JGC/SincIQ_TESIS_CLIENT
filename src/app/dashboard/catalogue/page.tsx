@@ -107,7 +107,7 @@ export default function CataloguePage() {
       <section className=" w-full flex justify-center items-center flex-col">
         <div className="h-[250px] w-full flex">
           <Image
-            src={catalogue.banner || ''}
+            src={catalogue?.banner || ''}
             alt="Banner"
             className="w-full h-full object-cover rounded bg-gray-300"
             width={1000}
@@ -121,10 +121,10 @@ export default function CataloguePage() {
           ) : (
             <>
               <h2 className="text-2xl font-bold">
-                {catalogue.name || 'Sin nombre'}
+                {catalogue?.name || 'Sin nombre'}
               </h2>
               <p className="text-gray-400 text-center">
-                {catalogue.description || 'Sin descripción'}
+                {catalogue?.description || 'Sin descripción'}
               </p>
             </>
           )}
